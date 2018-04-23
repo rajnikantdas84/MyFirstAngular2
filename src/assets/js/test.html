@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title> Populate States dropdown on change of Country Dropdown using Javascript : devzone.co.in</title>
+        <script type= "text/javascript" src = "countries.js"></script>
+        <style>
+	.main { 
+	width: 900px; 
+	margin: 0 auto; 
+        height: 900px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        }
+                
+        .header{
+    height: 100px;    
+}
+.content{    
+    height: 700px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+.footer{
+    height: 100px;  
+    bottom: 0px;
+}
+.heading{
+    color: #FF5B5B;
+    margin: 10px 0;
+    padding: 10px 0;
+    font-family: trebuchet ms;
+}
+#downloaded from http://devzone.co.in
+        </style>
+    </head>
+    <body>
+        <div class="main">
+             <div class="content">
+        <table cellspacing="2" cellpadding='2'>
+            <tr><td>
+                    Select Country:</td><td>   <select id="country" name ="country"></select></td></tr>
+            <tr><td>
+                    City/District/State:</td><td> <select name ="state" id ="state"></select></td></tr>
+        </table>    
+        <script language="javascript">populateCountries("country", "state");</script>	
+        
+             </div>
+
+        </div>
+    </body>		
+</html>

@@ -1,0 +1,144 @@
+<agent-landing-header></agent-landing-header>
+<div class="container-fluid tenant-background">
+<div class="container"  id="js-heightControl">
+	<div class="col-md-6 col-sm-12 col-xs-12"><h1>{{tenantName}}</h1></div>
+	<div class="col-md-6 col-sm-12 col-xs-12">
+		<h3><a class="link_align" [routerLink]="['/page', agentUsername]">Click here to report issue</a></h3>
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<ul class="nav nav-tabs hover_effect white-background">
+		<li><a [routerLink]="['/tenant-dashboard']">Reported Issue</a></li>
+		<li [ngStyle]="{'background-color': bannercolor}"><a data-toggle="tab" class="tab_links" id="acitve_link" [ngStyle]="{'color': '#fff'}" (mouseover)="onMouseOver('acitve_link')" (mouseout)="onMouseOut('acitve_link')" [routerLink]="['/tenant-dashboard/accountinfo']">Account Information</a></li>
+	</ul>
+	<div class="tab-content">
+        <div class="container-fluid white-background top-padding">
+			<form [formGroup]="editProfileForm" class="form-horizontal" name="editProfileForm" (ngSubmit)="updateProfile()">
+				<fieldset>
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="name">Full Name</label>  
+						<div class="col-md-6">
+							<input id="name" name="name" type="text" formControlName="name" class="form-control">
+							<div *ngIf="editProfileForm.get('name').touched && editProfileForm.get('name').invalid" class="alert alert-danger">
+								<div *ngIf="editProfileForm.get('name').errors.required">Please enter full name</div>
+							</div>							
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="email">Email Address</label>  
+						<div class="col-md-6">
+							<input id="email" name="email" formControlName="email" type="email" class="form-control" readonly>                        
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="phone">Contact Number</label>  
+						<div class="col-md-6">
+							<input id="phone" name="phone" formControlName="phone" type="phone" class="form-control no_radius">
+							<div *ngIf="editProfileForm.get('phone').touched && editProfileForm.get('phone').invalid" class="alert alert-danger">
+								<div *ngIf="editProfileForm.get('phone').errors.required">Please enter contact number</div>
+								<div *ngIf="editProfileForm.get('phone').errors.pattern">Please enter valid contact number</div>
+							</div>							
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="alternate_number">Alternate Contact Number</label>  
+						<div class="col-md-6">
+							<input id="alternate_number" name="alternate_number" type="text" formControlName="alternate_number" class="form-control no_radius input-md">
+							<div *ngIf="editProfileForm.get('alternate_number').dirty && editProfileForm.get('alternate_number').invalid" class="alert alert-danger">
+								<div *ngIf="editProfileForm.get('alternate_number').errors.pattern">Please enter valid alternate contact number</div>
+							</div>              
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="postcode">Postcode</label>  
+						<div class="col-md-6">
+							<input id="postcode" name="postcode" formControlName="postcode" type="text" class="form-control text-uppercase" (change)="getCity()">
+							<div *ngIf="editProfileForm.get('postcode').touched && editProfileForm.get('postcode').invalid" class="alert alert-danger">
+								<div *ngIf="editProfileForm.get('postcode').errors.required">Please enter postcode</div>
+								<div *ngIf="editProfileForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+							</div>							
+						</div>
+						<div class="col-md-3"></div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="city">City</label>  
+						<div class="col-md-6">
+							<input id="city" name="city" formControlName="city" type="text" class="form-control" readonly>					
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="state">County</label>  
+						<div class="col-md-6">
+							<input type="text" id="county" name ="county" class="form-control no_radius" formControlName="county" readonly />
+						</div>
+						<div class="col-md-3"></div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="country">Country</label>  
+						<div class="col-md-6">
+							<input id="country" name="country" formControlName="country" type="text" class="form-control no_radius" readonly />                 
+						</div>
+						<div class="col-md-3"></div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="address">Address</label>  
+						<div class="col-md-6">
+							<textarea id="address" name="address" formControlName="address" type="text" class="form-control input-md no_radius" rows="5"></textarea>
+							<div *ngIf="editProfileForm.get('address').touched && editProfileForm.get('address').invalid" class="alert alert-danger">
+								<div *ngIf="editProfileForm.get('address').errors.required">Please enter address</div>
+							</div>							
+						</div>
+						<div class="col-md-3"></div>
+					</div>				
+					
+					<div class="form-group"> 
+						<label class="col-md-3 control-label">
+						</label>
+						<div class="col-md-6"> 
+							<label class="checkbox_link"><input type="checkbox" name="changepassword" formControlName="changepassword" id="changepassword" (change)="updatePassword();" /> Update Password </label>
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					<!-- Text input-->
+					<div *ngIf="isChangePassword" class="form-group">
+						<label class="col-md-3 control-label" for="password">New Password</label>  
+						<div class="col-md-6">
+							<input id="password" name="password" type="password"  class="form-control input-md" formControlName="password" />
+							<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</i></div>
+								<div *ngIf="editProfileForm.get('password').touched && editProfileForm.get('password').invalid" class="alert alert-danger">
+									<div *ngIf="editProfileForm.get('password').errors.required">Please enter password</div>
+								<div *ngIf="editProfileForm.get('password').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</div>
+							</div>				
+						</div>
+						<div class="col-md-3"></div>
+					</div>
+					  <!-- Text input-->
+					<div *ngIf="isChangePassword" class="form-group">
+						<label class="col-md-3 control-label" for="showpassword"></label>  
+						<div class="col-md-6">
+							<label class="checkbox_link"><input id="checkbox" name="showpassword" type="checkbox" formControlName="showpassword" (change)="showPassword();">	Show Password	</label>	
+						</div>
+						<div class="col-md-3"></div>
+					  </div>					
+					<!-- Button -->
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="submit"></label>
+						<div class="col-md-6">
+							<button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!editProfileForm.valid">UPDATE</button>
+						</div>
+						<div class="col-md-3"></div>
+					</div>					
+				</fieldset>
+			</form>
+        </div>
+        <!-- /.container-fluid -->
+	</div>
+</div>
+</div>
+</div>
+<agent-landing-footer></agent-landing-footer>

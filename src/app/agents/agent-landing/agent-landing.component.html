@@ -1,0 +1,263 @@
+<agent-landing-header></agent-landing-header>
+<div class="container" id="js-heightControl">
+	<form [formGroup]="issueForm" name="issueForm" (ngSubmit)="submitIssue()" enctype= "multipart/form-data">
+	<div id="selectLanguageDropdown" class="localizationTool"></div>
+    <div><h1 class="sec_main_heading">HOW CAN WE ASSIST YOU?</h1></div>
+    <div style="margin-bottom:2%;"><h6 class="th_main_heading">PLEASE SELECT FROM THE RELEVANT CATEGORY</h6></div>
+	<div *ngIf="step1" id="demo1">		
+		<div *ngIf="!iscategory" class="alert alert-danger form_one">Please select category</div>
+		<div *ngIf="!ispostcode" class="alert alert-danger form_one">Please enter postcode</div>
+		<div *ngIf="!isaddress" class="alert alert-danger form_one">Please enter address</div>
+		<div *ngIf="!isfullname" class="alert alert-danger form_one">Please enter full name</div>
+		<div *ngIf="!isdescription" class="alert alert-danger form_one">Please enter description</div>
+		<div *ngIf="!isemail" class="alert alert-danger form_one">Please enter email address</div>
+		<div *ngIf="!isconfirm" class="alert alert-danger form_one">Please agree the terms and conditions</div>
+		<div *ngIf="!isphone" class="alert alert-danger form_one">Please enter contact number</div>
+		
+		<div class="row toggle_row accordion form-group" id="step1">
+			<span class="accordion-toggle open active slide1" [ngStyle]="{'background-color': bannercolor}" rel="1"><i class="ion-minus"></i>&nbsp; WHAT IS THE REPAIR TO REPORT?</span>
+			<div class="accordion-content toggle-content1" style="display: block;">
+				<ul *ngIf="clickedCat" class="breadcrumb">
+					<li><a (click)="backHome();">Home</a></li>
+					<li><a (click)="backPage(previousCatPageLevel);">{{previousCatPage}}</a></li>
+					<li>{{currentCatPage}}</li>  
+				</ul>		
+				<ul class="list-unstyled">
+					<center>
+	<!-- 					<li *ngFor="let category of categories; index as i" class="col-md-3 col-xs-6 col-sm-6 padding-0 pointer top" (click)="select(category)" [ngClass]="{active: isActive(category)}" id ={{category.catid}}>
+							<img style="margin-bottom:10px;" class="img-responsive" src="../assets/images/{{category.catimage}}" id ={{category.catid}} alt="">
+							<span>{{category.catname}}</span>
+						</li> -->
+						<div *ngIf="!isSubcat && !nosubcat && !isSubcat2" >
+							<li *ngFor="let parentcat of parentCatList; index as i" class="col-md-3 testhover col-xs-6 col-sm-6 padding-0 pointer top" (click)="selectsubcat1(parentcat)" [ngClass]="{active: isActive(parentcat)}" (mouseover)="onMouseOver($event,parentcat.cat_id)" (mouseout)="onMouseOut($event,parentcat.cat_id)" id ={{parentcat.cat_id}}>
+							<img style="margin-bottom:10px;" class="img-responsive" src="{{siteurl}}/uploadimages/categoryimage/{{parentcat.cat_image}}" width="52px" height="52px" id ={{parentcat.cat_id}} alt="{{parentcat.cat_name}}">
+								<span>{{parentcat.cat_name}}</span>
+							</li>
+						</div>
+						<div *ngIf="isSubcat && !isSubcat2 && !nosubcat" >
+							<li *ngFor="let result of subcat1; index as i" class="col-md-3 col-xs-6 col-sm-6 padding-0 pointer top" (click)="selectsubcat2(result)" [ngClass]="{active: isActive(result)}" (mouseover)="onMouseOver($event,result.cat_id)" (mouseout)="onMouseOut($event,result.cat_id)" id ={{result.cat_id}}>
+							<img style="margin-bottom:10px;" class="img-responsive" src="{{siteurl}}/uploadimages/categoryimage/{{result.cat_image}}" width="52px" height="52px" id ={{result.cat_id}} alt="{{result.cat_name}}">
+								<span>{{result.cat_name}}</span>
+							</li>
+						</div>
+						<div *ngIf="isSubcat2 && !nosubcat" >
+							<li *ngFor="let result of subcat2; index as i" class="col-md-3 col-xs-6 col-sm-6 padding-0 pointer top" (click)="selectsubcat3(result)" [ngClass]="{active: isActive(result)}" (mouseover)="onMouseOver($event,result.cat_id)" (mouseout)="onMouseOut($event,result.cat_id)" id ={{result.cat_id}}>
+							<img style="margin-bottom:10px;" class="img-responsive" src="{{siteurl}}/uploadimages/categoryimage/{{result.cat_image}}" width="52px" height="52px" id ={{result.cat_id}} alt="{{result.cat_name}}">
+								<span>{{result.cat_name}}</span>
+							</li>
+						</div>
+					</center>
+					<div *ngIf="nosubcat" class="form-group">
+					
+						<h5 *ngIf="self_fix" class="internal_heading">Self Fix</h5>
+						<p *ngIf="self_fix" class="border-bottom" [innerHTML]="self_fix | parseUrl" [dynamicContent]="currentView"></p>
+						<h6 *ngIf="self_fix" id="count_message2" style="margin-top:15px;"></h6>
+						
+						
+						<!-- Issue Description -->
+						<h5 class="internal_heading">Issue Description</h5> 
+						<textarea accept-charset="UTF-8" #inputdescription (keyup)="countIssueDescription(inputdescription.value)"class="form-control form_one input-md" placeholder="Enter Issue Description" id="issuedescription" name="issuedescription" formControlName="issuedescription"  rows="5"></textarea>				
+						<h6 id="count_message" style="margin-top:5px;"></h6>
+						
+						<input type="button" id="gostep2" name="gostep2" value="Next" class="next-btn btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "issueForm.get('issuedescription').invalid" (click)="goNext('step2');" />
+					</div>					
+				</ul>
+			</div>
+		</div>
+    </div>
+	<!--<div style="margin: 0px;width:100%;height: 0px;"><button type="button" class="btn btn-primary new_button"  id="toggle_button" >View More</button></div>-->
+		
+		<input type="hidden" name="selectedcategory" id="selectedcategory" formControlName="selectedcategory" />
+		<input type="hidden" name="agentname" id="agentname" formControlName="agentname" />
+		<input type="hidden" name="agentid" id="agentid" formControlName="agentid" />
+		<input type="hidden" name="agentemail" id="agentemail" formControlName="agentemail" />
+		<input type="hidden" name="agentphone" id="agentphone" formControlName="agentphone" />
+		<input type="hidden" name="customertype" id="customertype" formControlName="customertype" />
+		<input type="hidden" name="issueimage1" id="issueimage1" formControlName="issueimage1" />
+		<input type="hidden" name="issueimage2" id="issueimage2" formControlName="issueimage2" />
+		<input type="hidden" name="issueimage3" id="issueimage3" formControlName="issueimage3" />
+		<input type="hidden" name="tenantid" id="tenantid" formControlName="tenantid" />
+		<input type="hidden" name="tenantid" id="tenantid" formControlName="tenantid" />
+		<input type="hidden" name="agentusername" id="agentusername" formControlName="agentusername" />
+		
+ 		<div *ngIf="step2" class="accordion form-group" id="step2" >
+			<span class="accordion-toggle slide2" [ngStyle]="{'background-color': bannercolor}" rel="2"><i class="ion-minus"></i>&nbsp; Add Photos</span>
+			<div class="accordion-content toggle-content2" style="display:block;">
+				<h6 class="internal_heading">Please add any photo to help explain the problem.(Max.Size - 6MB)</h6>
+				<div class="upload-area" [dropzone] = "issueimagefirst_config" (error)="onUploadErrorFirst($event)" (success)="onUploadSuccessFirst($event)" (canceled)="onUploadCanceledFirst($event)" (removedfile)="onRemoveFirst($event)">
+				</div>
+				<div class="upload-area" [dropzone] = "issueimagesecond_config" (error)="onUploadErrorSecond($event)" (success)="onUploadSuccessSecond($event)" (canceled)="onUploadCanceledSecond($event)" (removedfile)="onRemoveSecond($event)">
+				</div>
+				<div class="upload-area" [dropzone] = "issueimagethird_config" (error)="onUploadErrorThird($event)" (success)="onUploadSuccessThird($event)" (canceled)="onUploadCanceledThird($event)" (removedfile)="onRemoveThird($event)">
+				</div>				
+				<h6 class="internal_heading2">Adding images of the issue can help clarify the issues and likely that your issue is resolved sooner.</h6>
+				<input type="button" id="gostep3" name="gostep3" value="Next" class="next-btn btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" (click)="goNext('step3');" />
+			</div>
+			
+		</div> <!--Image section End -->
+		<div *ngIf="step3" class="accordion form-group" >
+			<input type="hidden" name="selectedcategory" id="selectedcategory" />
+			<span class="accordion-toggle slide3" [ngStyle]="{'background-color': bannercolor}" rel="3"><i class="ion-minus"></i>&nbsp; Address Details</span>
+			<div class="accordion-content toggle-content3" style="display:block;">
+				<h5 class="internal_heading">Postcode</h5>
+				<div *ngIf="loggedUser" class="form-group">
+					<input type="text" name="postcode" #ref1 class="form-control form_one text-uppercase" placeholder="Find by postcode" formControlName="postcode" id="postcode" (change)="getCity()" />
+					<div *ngIf="issueForm.get('postcode').touched && issueForm.get('postcode').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('postcode').errors.required">Please enter postcode</div>
+						<div *ngIf="issueForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+					</div>
+				</div>
+				<div *ngIf="!loggedUser" class="form-group">        
+					<input type="text" name="postcode" class="form-control form_one text-uppercase" formControlName="postcode" (change)="getCity()" placeholder="Find by Postcode" id="postcode">
+					<div *ngIf="issueForm.get('postcode').touched && issueForm.get('postcode').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('postcode').errors.required">Please enter postcode</div>
+						<div *ngIf="issueForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+					</div>
+				</div>
+				<!-- City field automatically display when correct city zipcode entered -->
+				<h5 *ngIf="isCity" class="internal_heading">City</h5>
+				<div *ngIf="isCity" class="form-group">
+					<input type="text" name="city" class="form-control form_one" formControlName="city" id="city" readonly />
+				</div>
+				<!-- County field automatically display when correct city zipcode entered -->
+				<h5 *ngIf="isCounty" class="internal_heading">County</h5>
+				<div *ngIf="isCounty" class="form-group">
+					<input type="text" name="county" class="form-control form_one" formControlName="county" id="county" readonly />
+				</div>
+				<!-- Country field automatically display when correct city zipcode entered -->
+				<h5 *ngIf="isCountry" class="internal_heading">Country</h5>
+				<div *ngIf="isCountry" class="form-group">
+					<input type="text" name="country" class="form-control form_one" formControlName="country" id="country" readonly />
+				</div>				
+				<h5 class="internal_heading">Address</h5>
+				<div *ngIf="loggedUser" class="form-group">
+					<textarea id="address" name="address" type="text" formControlName="address" placeholder="Enter Address" class="form-control form_one" rows="5"></textarea>
+				</div>				
+				<div *ngIf="!loggedUser" class="form-group">
+					<textarea id="address" name="address" type="text" formControlName="address" placeholder="Enter Address" class="form-control form_one" rows="5"></textarea>
+					<div *ngIf="issueForm.get('address').touched && issueForm.get('address').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('address').errors.required">Please enter address</div>
+					</div>						
+				</div>
+				<input type="button" id="gostep4" name="gostep4" value="Next" class="next-btn btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" (click)="goNext('step4');" [disabled] = "issueForm.get('postcode').invalid || issueForm.get('address').invalid" />
+			</div>
+		</div>		
+		<div *ngIf="step4" class="accordion form-group">
+			<span class="accordion-toggle slide4" [ngStyle]="{'background-color': bannercolor}" rel="4"><i class="ion-minus"></i>&nbsp; Your Contact Details</span>
+			<div class="accordion-content toggle-content4" style="display:block;">
+				
+				<h5 class="internal_heading">Full Name</h5> 
+				<div *ngIf="loggedUser" class="form-group">
+					<input type="text" name="fullname" class="form-control form_one" placeholder="Full Name" formControlName="fullname" id="fullname" readonly>
+				</div>				
+				<div *ngIf="!loggedUser" class="form-group"> 
+					<input type="text" name="fullname" class="form-control form_one" formControlName="fullname" placeholder="Full Name" id="fullname">
+					<div *ngIf="issueForm.get('fullname').touched && issueForm.get('fullname').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('fullname').errors.required">Please enter full name</div>
+					</div>						
+				</div>
+				<h5 class="internal_heading">Email address</h5>
+				<div *ngIf="loggedUser" class="form-group">
+					<input type="email" name="email" class="form-control form_one input-md" placeholder="e.g:john@gmail.com" formControlName="email" id="email" readonly>
+				</div>
+				<div *ngIf="!loggedUser" class="form-group">					
+					<input type="email" name="email" class="form-control form_one" formControlName="email" placeholder="e.g:john@gmail.com" id="email">
+					<div *ngIf="issueForm.get('email').touched && issueForm.get('email').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('email').errors.required">Please enter email</div>
+						<div *ngIf="issueForm.get('email').errors.pattern">Please enter valid email</div>
+					</div>					
+				</div>
+				<h5 class="internal_heading form-group required">Contact Number</h5>
+				<div *ngIf="loggedUser" class="form-group">
+					<input type="text" name="contactnumber" class="form-control form_one" placeholder="Enter Contact Number" formControlName="contactnumber" id="contactnumber" />
+					<div *ngIf="issueForm.get('contactnumber').touched && issueForm.get('contactnumber').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('contactnumber').errors.required">Please enter contact number</div>
+						<div *ngIf="issueForm.get('contactnumber').errors.pattern">Please enter valid contact number</div>
+					</div>					
+				</div>				
+				<div *ngIf="!loggedUser" class="form-group">
+					<input type="text" name="contactnumber" class="form-control form_one" placeholder="Enter Contact Number" formControlName="contactnumber" id="contactnumber">
+					<div *ngIf="issueForm.get('contactnumber').touched && issueForm.get('contactnumber').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('contactnumber').errors.required">Please enter contact number</div>
+						<div *ngIf="issueForm.get('contactnumber').errors.pattern">Please enter valid contact number</div>
+					</div>
+				</div>      
+				<h5 class="internal_heading">Alternate Contact Number</h5>
+				<div *ngIf="isAlternateNumber" class="form-group">
+					<input type="text" name="alternatenumber" class="form-control form_one" formControlName="alternatenumber" id="alternatenumber" />
+					<div *ngIf="issueForm.get('alternatenumber').dirty && issueForm.get('alternatenumber').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('alternatenumber').errors.pattern">Please enter valid alternate contact number</div>
+					</div>					
+				</div>				
+				<div *ngIf="!isAlternateNumber" class="form-group">
+					<input type="text" name="alternatenumber" class="form-control form_one" formControlName="alternatenumber" id="alternatenumber">
+					<div *ngIf="issueForm.get('alternatenumber').dirty && issueForm.get('alternatenumber').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('alternatenumber').errors.pattern">Please enter valid alternate contact number</div>
+					</div>					
+				</div> 
+				<input type="button" id="gostep5" name="gostep5" value="Next" class="next-btn btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" (click)="goNext('step5');" [disabled] = "issueForm.get('fullname').invalid || issueForm.get('email').invalid || issueForm.get('contactnumber').invalid" />
+			</div>
+		</div>		
+		<div *ngIf="step5" class="accordion form-group">		
+			<span class="accordion-toggle slide5" [ngStyle]="{'background-color': bannercolor}" rel="5"><i class="ion-minus"></i>&nbsp; Notes</span>		
+			<div class="accordion-content toggle-content5" style="display:block;">
+				<h5 class="internal_heading">Additional Notes</h5> 
+				<div class="form-group">
+					<textarea id="issueadditionalnotes" name="issueadditionalnotes" #inputnotes (keyup)="countAdditionalNotes(inputnotes.value)" type="text" formControlName="issueadditionalnotes" placeholder="Enter Additional Notes Here" class="form-control form_one" rows="5" (change)="checkAdditionalNotes();"></textarea>
+<!-- 					<div *ngIf="issueForm.get('issueadditionalnotes').touched && issueForm.get('issueadditionalnotes').invalid" class="alert alert-danger form_one">
+						<div *ngIf="issueForm.get('issueadditionalnotes').errors.required">Please enter additional notes</div>
+					</div> -->					
+					<h6 id="count_message2" style="margin-top:5px;"></h6>
+				</div>
+				<h5 class="internal_heading">Manufacturer (If Applicable)</h5>
+				<div class="form-group">
+					<input type="text" name="manufacturer" class="form-control form_one" formControlName="manufacturer" id="manufacturer">
+				</div>
+				<h5 class="internal_heading">Model Number (If Applicable)</h5>
+				<div class="form-group">
+					<input type="text" name="productmodel" class="form-control form_one" formControlName="productmodel"  id="productmodel">
+				</div>
+				<input type="hidden" name="accesspropertyvalue" formControlName="accessproperty" id="accesspropertyvalue" />
+				<h5 class="internal_heading">Serial Number (If Applicable)</h5>
+				<div class="form-group">
+					<input type="text" name="productserial" class="form-control form_one" formControlName="productserial"  id="productserial">
+				</div>
+				<div>
+					<label class="radio-inline">
+						<input type="radio" id="accesspropertywithout" name="accessproperty" (click)="accessProperty()" checked="checked" >I give authority for my property to be accessed without me being present &nbsp;&nbsp;<b>OR</b>
+					</label>
+				</div>
+				<div>
+					<label class="radio-inline">
+						<input type="radio" id="accesspropertywithme" name="accessproperty" (click)="accessProperty()" />
+						I want to be present when the work is carried out
+					</label>
+				</div>
+				<!-- Date Picker Code Starts -->
+				<input type="hidden" formControlName="visitdatetime" name="visitdatetime" id="visitdatetime"  />
+				<div *ngIf="accesspropertywithme" class="form-group">
+					<h5 class="internal_heading">Choose the date and time of your presence </h5>
+					<div class="input-group date half-width" id="mydatetimepicker">
+						<input type="text" class="form-control full-width" id="datevalueselected" />
+						<span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>
+					</div>
+				</div>					
+<!-- 				<div *ngIf="accesspropertywithme" class="form-group">
+					<h5 class="internal_heading">Choose the date and time of your presence </h5>
+					<input formControlName="visitdatetime" name="visitdatetime" class="form-control form_one calendar-input" ngui-datetime-picker [min-date] = "currentDate" date-format="DD-MM-YYYY hh:mm" placeholder="Select Date and Time" />
+				</div> -->
+<!-- 				<div class="radio">
+					<label class="form_cb"><input type="checkbox" name="vulnerableproperty" id="vulnerableproperty" formControlName="vulnerableproperty">&nbsp; Is there a vulnerable occupier at this property?</label>
+				</div> -->
+				<div class="radio_left"><input type="checkbox" name="confirmterm" id="confirmterm" formControlName="confirmterm" (change)="checkCondition();"></div>
+				<div class="confirm_text">I confirm I have read and followed the self-fix guidelines (if available). I understand charges may apply if initial checks have not been undertaken.<span class="requiredlabel">*</span>
+				</div>				
+				<div class="form-group">
+					<button id="submitissue" name="submitissue" class="btn btn-primary btn-block panel_button_last text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!issueForm.valid">Submit Issue</button>
+				</div>				
+			</div>			
+		</div>
+	
+	</form>
+</div>
+<agent-landing-footer></agent-landing-footer> 

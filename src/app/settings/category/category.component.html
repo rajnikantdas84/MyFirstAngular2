@@ -1,0 +1,63 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page_heading">Category List</h1>
+					<a *ngIf="isAdmin" [routerLink]="['/admin/add-category']" class="btn btn-primary admin-add-btn" title="Add Category">Add New Category</a>
+                    <div class="breadcrumb">
+                        <div id="new-search-area"></div>
+                    </div>
+                </div>
+            </div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="table-responsive">
+					  <table id="example" class="table table-bordered table-hover">
+						<thead>
+							<tr class="row-heading row_background">
+								<th>ID</th>
+								<th width="20%">Name</th>
+								<th width="30%">Self Fix</th>
+								<th width="10%">Image</th>
+								<th width="20%">Parent</th>
+								<th width="5%">Status</th>
+								<th width="10%">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr  *ngFor="let list of categoryList" >
+						  <td *ngIf="isAdmin" class="pointer-link" (click) = "editCategory(list.cat_id)">{{list.cat_id}}</td>
+						  <td *ngIf="isAdmin" class="pointer-link" (click) = "editCategory(list.cat_id)">{{list.cat_name}}</td>
+						  <td *ngIf="isAdmin" class="pointer-link" (click) = "editCategory(list.cat_id)">{{list.cat_description}}</td>
+						  <td *ngIf="isAdmin" class="pointer-link" (click) = "editCategory(list.cat_id)"><img src="{{siteurl}}/uploadimages/categoryimage/{{list.cat_image}}" width="52px" alt="{{list.cat_image}}"/></td>
+						  <td *ngIf="isAdmin" class="pointer-link" (click) = "editCategory(list.cat_id)">{{list.parentname}}</td>
+						  <!-- If user is Agent -->
+						  <td *ngIf="!isAdmin">{{list.cat_id}}</td>
+						  <td *ngIf="!isAdmin">{{list.cat_name}}</td>
+						  <td *ngIf="!isAdmin">{{list.cat_description}}</td>
+						  <td *ngIf="!isAdmin"><img src="{{siteurl}}/uploadimages/categoryimage/{{list.cat_image}}" width="52px" alt="{{list.cat_image}}"/></td>
+						  <td *ngIf="!isAdmin">{{list.parentname}}</td>
+						
+						  <td *ngIf="list.status == 1">Enabled</td>
+						  <td *ngIf="list.status == 0">Disabled</td>
+						  <td>
+							<a *ngIf="isAdmin" [routerLink]="['/admin/edit-category', list.cat_id]" class="btn btn-default" title="Edit">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<span *ngIf="list.status == 1" class="glyphicon glyphicon-ban-circle btn btn-default" (click)="confirmDialog(list.cat_id,1)" title="Deactivate"></span>
+							<span *ngIf="list.status == 0" class="glyphicon glyphicon-ok-circle btn btn-default" (click)="confirmDialog(list.cat_id,0)" title="Activate"></span>
+						  </td>
+						</tr>
+						</tbody>
+					  </table>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

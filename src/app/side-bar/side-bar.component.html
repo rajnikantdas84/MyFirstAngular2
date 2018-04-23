@@ -1,0 +1,44 @@
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+  <ul class="nav navbar-nav side-nav" [ngStyle]="{'background-color': bannercolor}">
+    <li>
+        <a routerLink="/admin/dashboard"><i class="fa fa-fw fa-dashboard"></i>&nbsp; Reported Issue</a>
+    </li>
+    <li *ngIf="isAdmin">
+      <a href="javascript:;" data-toggle="collapse" data-target="#customer"><i class="fa fa-user"></i>&nbsp; Customers <i class="fa fa-fw fa-caret-down"></i></a>
+      <ul id="customer" class="collapse">
+        <li>
+            <a routerLink="/admin/manage-customers">Manage Customers</a>
+        </li>        
+      </ul>
+    </li>
+    <li *ngIf="isAdmin">
+        <a href="javascript:;" data-toggle="collapse" data-target="#agent"><i class="fa fa-user"></i>&nbsp; Agents <i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id="agent" class="collapse">
+            <li>
+                <a routerLink="/admin/add-agents">Add Agents</a>
+            </li>
+            <li class="active">
+                <a routerLink="/admin/manage-agents">Manage Agents</a>
+            </li>
+        </ul>
+    </li>
+	<li>
+        <a href="javascript:;" data-toggle="collapse" data-target="#setup"><i class="fa fa-cogs"></i>&nbsp; Setup <i class="fa fa-fw fa-caret-down"></i></a>
+        <ul id="setup" class="collapse">
+            <li *ngIf="isAdmin">
+                <a routerLink="/admin/agent-settings">Agent Settings</a>
+            </li>
+            <li>
+                <a routerLink="/admin/default-settings">Default Settings</a>
+            </li>
+<!--             <li *ngIf="isAdmin">
+                <a routerLink="/admin/manage-admins">Manage Admins</a>
+            </li> -->			
+            <li>
+                <a routerLink="/admin/category">Category Management</a>
+            </li>			
+        </ul>
+    </li>      
+  </ul>
+</div>

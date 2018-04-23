@@ -1,0 +1,64 @@
+.background
+{
+    margin-top: 1.5%;
+    background-color: #e6e6e6;
+}
+.row_background
+{
+    background-color: white;
+}
+
+
+.content_background
+{
+	                               /*previously commented ---- background-color: #efefef;*/
+background-color: #e2e2e2;
+}
+/*.page-header
+{
+	font-size: 24px;
+}*/
+.page_heading
+{
+    font-size: 24px;
+    padding:20px;
+}
+#example_paginate
+{
+    padding:20px;
+}
+.no_radius
+ {
+    border-radius: 0px;
+ box-shadow: none !important;
+
+ }
+.no_radius:focus{
+border:1px solid ;
+  border-color: #e2e2e2;
+      transition: #e2e2e2 ease-in-out .15s, box-shadow ease-in-out .15s;
+      -webkit-transition: border-color .2s ease;
+    transition: border-color .2s ease;
+}
+@media screen and (max-width: 768px)
+{
+    #new-search-area
+    {
+        
+        margin-top: 10px;
+    }
+    .breadcrumb
+    {
+    		background-color: #e6e6e6;
+    }
+
+    .content_background
+    {
+        margin-top: 150px;
+    }
+    .page_heading
+    {
+        padding: 0px;
+    }
+
+}

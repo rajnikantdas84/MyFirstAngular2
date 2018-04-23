@@ -1,0 +1,175 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+          <form [formGroup]="agentForm" class="form-horizontal" name="form" (ngSubmit)="addAgents()">
+		  <!-- <input type="hidden" name="agenttype" id="agenttype" formControlName="agenttype" value="serviceprovider" /> -->
+          <fieldset>
+          <!-- Form Name -->
+          <legend class="page_heading">Add New Agent</legend>
+          <!-- Text input-->   
+          <div *ngIf="addedAgent"class="alert alert-success">{{addAgentMsg}}</div>   
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentname">Agent Name</label>  
+            <div class="col-md-8">
+              <input id="agentname" name="agentname" type="text" formControlName="agentname" class="form-control">
+		          <div *ngIf="agentForm.get('agentname').touched && agentForm.get('agentname').invalid" class="alert alert-danger">
+                <div *ngIf="agentForm.get('agentname').errors.required">Please enter agent name</div>
+              </div>                            
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentusername">Agent Type</label>
+            <div class="col-md-8">
+				<input id="agenttype" name="agenttype" type="text" formControlName="agenttype" value="Service Provider" class="form-control" readonly>            
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentusername">Agent Username</label>  
+            <div class="col-md-8">
+            <input id="agentusername" name="agentusername" type="text" formControlName="agentusername" class="form-control">
+		          <div *ngIf="agentForm.get('agentusername').touched && agentForm.get('agentusername').invalid" class="alert alert-danger">
+                <div *ngIf="agentForm.get('agentusername').errors.required">Please enter agent username</div>
+                <div *ngIf="agentForm.get('agentusername').errors.pattern">Username cannot contain space</div>
+                <div *ngIf="agentForm.get('agentusername').errors.isUserUnique">Username already exists</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentemail">Email Address</label>  
+            <div class="col-md-8">
+            <input id="agentemail" name="agentemail" type="agentemail" formControlName="agentemail" class="form-control input-md">
+		          <div *ngIf="agentForm.get('agentemail').touched && agentForm.get('agentemail').invalid" class="alert alert-danger">
+					<div *ngIf="agentForm.get('agentemail').errors.required || agentForm.get('agentemail').errors.pattern ">Email is required and format should be <i>john@doe.com</i></div>
+					<div *ngIf="agentForm.get('agentemail').errors.isEmailUnique">Email already exists</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentphone">Contact Number</label>  
+            <div class="col-md-8">
+            <input id="agentphone" name="agentphone" type="text" formControlName="agentphone" class="form-control input-md">
+					<div *ngIf="agentForm.get('agentphone').touched && agentForm.get('agentphone').invalid" class="alert alert-danger">
+						<div *ngIf="agentForm.get('agentphone').errors.required">Please enter contact number</div>
+						<div *ngIf="agentForm.get('agentphone').errors.pattern">Please enter valid contact number</div>
+					</div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="alternatephone">Alternate Contact Number</label>  
+            <div class="col-md-8">
+            <input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control input-md">
+				<div *ngIf="agentForm.get('alternatephone').touched && agentForm.get('alternatephone').invalid" class="alert alert-danger">
+					<div *ngIf="agentForm.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+				</div> 
+            </div>
+            <div class="col-md-2"></div>
+          </div>                
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="address">Address</label>  
+            <div class="col-md-8">
+            <textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5"></textarea>
+					<div *ngIf="agentForm.get('address').touched && agentForm.get('address').invalid" class="alert alert-danger">
+						<div *ngIf="agentForm.get('address').errors.required">Please enter address</div>
+					</div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="postcode">Postcode</label>  
+            <div class="col-md-8">
+            <input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control input-md text-uppercase" (change)="getCity()">
+				<div *ngIf="agentForm.get('postcode').touched && agentForm.get('postcode').invalid" class="alert alert-danger">
+					<div *ngIf="agentForm.get('postcode').errors.required">Please enter postcode</div>
+					<div *ngIf="agentForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+				</div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+		  
+          <!-- Text input-->
+          <div *ngIf="isCity" class="form-group">
+            <label class="col-md-2 control-label" for="city">City</label>  
+            <div class="col-md-8">
+            <input id="city" name="city" type="text" formControlName="city" class="form-control input-md" readonly>	              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div *ngIf="isCounty" class="form-group">
+            <label class="col-md-2 control-label" for="state">County</label>  
+            <div class="col-md-8">
+				<input id="county" name="county" type="text" formControlName="county" class="form-control input-md" readonly>             
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		 <div *ngIf="isCountry" class="form-group">
+            <label class="col-md-2 control-label" for="country">Country</label>  
+            <div class="col-md-8">
+				<input id="country" name="country" type="text" formControlName="country" class="form-control input-md" readonly>        
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="password">Password</label>  
+            <div class="col-md-8">
+            <input id="password" name="password" type="password"  class="form-control input-md" formControlName="password" />
+			<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</i></div>
+              <div *ngIf="agentForm.get('password').touched && agentForm.get('password').invalid" class="alert alert-danger">
+                <div *ngIf="agentForm.get('password').errors.required">Please enter password</div>
+                <div *ngIf="agentForm.get('password').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+		            <!-- Text input-->
+		<div class="form-group">
+            <label class="col-md-2 control-label" for="showpassword"></label>  
+            <div class="col-md-8">
+				<label class="checkbox_link"><input id="checkbox" name="showpassword" type="checkbox" formControlName="showpassword" (change)="showPassword();">	Show Password </label>	
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="confirmpassword">Confirm Password</label>  
+            <div class="col-md-8">
+              <input id="confirmpassword" name="confirmpassword" type="password" class="form-control input-md" formControlName="confirmpassword">              
+              <div *ngIf="agentForm.get('confirmpassword').touched && agentForm.get('confirmpassword').invalid" class="alert alert-danger">
+                <div *ngIf="agentForm.get('confirmpassword').errors.required">Please enter confirm password</div>
+                <div *ngIf="agentForm.get('confirmpassword').errors.MatchPassword">Confirm password not matched</div>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+          </div> 
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="submit"></label>
+            <div class="col-md-8">
+              <button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!agentForm.valid">SAVE</button>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

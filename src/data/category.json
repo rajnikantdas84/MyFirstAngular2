@@ -1,0 +1,50 @@
+[
+ {
+    "catid": "1001",
+	"cattype": "Fire",
+	"catename": "Fire",
+	"catimage": "fire-icon.png"
+  },
+ {
+    "catid": "1002",
+	"cattype": "gas",
+	"catename": "Smell Gas",
+	"catimage": "smell-gas-icon.png"
+  },
+ {
+    "catid": "1003",
+	"cattype": "bathroom",
+	"catename": "Bathroom & Toilet",
+	"catimage": "bathroom-icon.png"
+  },
+ {
+    "catid": "1004",
+	"cattype": "kitchen",
+	"catename": "Kitchen",
+	"catimage": "kitchen-icon.png"
+  },
+ {
+    "catid": "1005",
+	"cattype": "heating",
+	"catename": "Heating",
+	"catimage": "heating-icon.png"
+  },
+ {
+    "catid": "1006",
+	"cattype": "water",
+	"catename": "Water Breaks",
+	"catimage": "water-icon.png"
+  },
+ {
+    "catid": "1007",
+	"cattype": "lock",
+	"catename": "Door, Garages & Locks",
+	"catimage": "doors-icon.png"
+  },
+ {
+    "catid": "1008",
+	"cattype": "wall",
+	"catename": "Internal Floor, Wall and Ceilings",
+	"catimage": "internal-floors-icon.png"
+  }
+]

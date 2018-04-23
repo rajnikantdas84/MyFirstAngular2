@@ -1,0 +1,252 @@
+<agent-landing-header></agent-landing-header>
+<div class="container-fluid tenant-background">
+<div class="container"  id="js-heightControl">
+	<div class="col-md-6 col-sm-12 col-xs-12"><h1>{{tenantName}}</h1></div>
+	<div class="col-md-6 col-sm-12 col-xs-12">
+		<h3><a class="link_align" [routerLink]="['/page', agentUsername]">Click here to report issue</a></h3>
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<ul class="nav nav-tabs hover_effect white-background">
+		<li><a [routerLink]="['/tenant-dashboard']">Reported Issue</a></li>
+		<li><a [routerLink]="['/tenant-dashboard/accountinfo']">Account Information</a></li>
+		<li [ngStyle]="{'background-color': bannercolor}"><a data-toggle="tab" id="acitve_link" [ngStyle]="{'color': '#fff'}" (mouseover)="onMouseOver('acitve_link')" (mouseout)="onMouseOut('acitve_link')" [routerLink]="['/tenant-update-issue', issueid]">Issue Details</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="issue_div"><h3 class="head_edit">Issue #{{issueid}} {{getstatus}}</h3></div>
+        <div class="container-fluid white-background top-padding">		
+          <form [formGroup]="issueEditForm" class="form-horizontal" name="issueEditForm" (ngSubmit)="updateIssue()">
+			  <input type="hidden" name="logged_in_usertype" id="logged_in_usertype" formControlName="logged_in_usertype" />
+			  <input type="hidden" name="logged_in_userid" id="logged_in_userid" formControlName="logged_in_userid" />
+			  <input type="hidden" name="issueid" id="issueid" formControlName="issueid" />
+			  <input type="hidden" name="logged_in_username" id="logged_in_username" formControlName="logged_in_username" />
+			  <input id="agentid" name="agentid" type="hidden" formControlName="agentid" />
+			  <input type="hidden" id="issuestatus" formControlName="issuestatus" name="issuestatus" />
+          <fieldset>
+          <!-- Form Name -->
+          
+          <!-- Text input-->   
+          <!--<div *ngIf="updatedissue" class="alert alert-success" dismiss-on-timeout="2000">{{successMsg}}</div>-->
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Issue Type</label>  
+            <div class="col-md-6">
+              <input id="issuetype" name="issuetype" type="text" formControlName="issuetype" class="form-control text-capitalize" readonly />                   
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Issue Status</label>  
+            <div class="col-md-6">
+              <input id="issuestatus" name="issuestatus" type="text" formControlName="issuestatus" class="form-control text-capitalize" value="{{getstatus}}" readonly>                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div *ngIf="issueImageExist" class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Issue Image</label>  
+            <div class="col-md-6 slides">
+				<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Date Submitted</label>  
+            <div class="col-md-6">
+              <input id="issuecreated" name="issuecreated" type="text" value="{{issue_created_date | amDateFormat:'DD MMM YYYY HH:mm:ss'}}" formControlName="issuecreated" class="form-control" readonly>
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="agentname">Agent Name</label>  
+            <div class="col-md-6">
+              <input id="agentname" name="agentname" type="text" formControlName="agentname" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="agentemail">Agent Email</label>  
+            <div class="col-md-6">
+              <input id="agentemail" name="agentemail" type="text" formControlName="agentemail" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="agentphone">Agent Contact Number</label>  
+            <div class="col-md-6">
+              <input id="agentphone" name="agentphone" type="text" formControlName="agentphone" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Name</label>  
+            <div class="col-md-6">
+              <input id="customername" name="customername" type="text" formControlName="customername" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="customertype">Customer Type</label>  
+            <div class="col-md-6">
+              <input id="customertype" name="customertype" type="text" formControlName="customertype" class="form-control text-capitalize" readonly>
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Email</label>  
+            <div class="col-md-6">
+              <input id="customeremail" name="customeremail" type="text" formControlName="customeremail" class="form-control" readonly>
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Address</label>  
+            <div class="col-md-6">
+              <textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5"></textarea>
+					<div *ngIf="issueEditForm.get('address').dirty && issueEditForm.get('address').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('address').errors.required">Please enter address.</div>
+					</div>			  
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Contact Number</label>  
+            <div class="col-md-6">
+              <input id="phone" name="phone" type="text" formControlName="phone" class="form-control" />
+					<div *ngIf="issueEditForm.get('phone').touched && issueEditForm.get('phone').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('phone').errors.required">Please enter contact number</div>
+						<div *ngIf="issueEditForm.get('phone').errors.pattern">Please enter valid contact number</div>
+					</div>		  
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Alternate Contact Number</label>  
+            <div class="col-md-6">
+              <input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control" />
+					<div *ngIf="issueEditForm.get('alternatephone').dirty && issueEditForm.get('alternatephone').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+					</div>			  
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Postcode</label>  
+            <div class="col-md-6">
+              <input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control text-uppercase" (change)="getCity()" />
+					<div *ngIf="issueEditForm.get('postcode').dirty && issueEditForm.get('postcode').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+						<div *ngIf="issueEditForm.get('postcode').errors.required">Please enter postcode</div>
+					</div>
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="city">City</label>  
+            <div class="col-md-6">
+				<input id="city" name="city" type="text" formControlName="city" class="form-control input-md" readonly>	              
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="city">County</label>  
+            <div class="col-md-6">
+				<input id="county" name="county" type="text" formControlName="county" class="form-control input-md" readonly>	              
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="city">Country</label>  
+            <div class="col-md-6">
+				<input id="country" name="country" type="text" formControlName="country" class="form-control input-md" readonly>	              
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Manufacturer</label>  
+            <div class="col-md-6">
+              <input id="manufacturer" name="manufacturer" type="text" formControlName="manufacturer" class="form-control" />                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="modelnumber">Model Number</label>  
+            <div class="col-md-6">
+              <input id="modelnumber" name="modelnumber" type="text" formControlName="modelnumber" class="form-control" />                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Serial Number</label>  
+            <div class="col-md-6">
+              <input id="serialnumber" name="serialnumber" type="text" formControlName="serialnumber" class="form-control" />                          
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+<!--           <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Vulnerable Property</label>  
+            <div class="col-md-6">
+              <input id="vulnerablevalue" name="vulnerablevalue" type="text" value="{{vulnerablevalue}}" class="form-control" readonly />                      
+            </div>
+			<div class="col-md-3"></div>
+          </div> -->
+          <div *ngIf="showVisitDateTime" class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Date and Time for Visit</label>  
+            <div class="col-md-6">
+              <input id="visitdatetime" name="visitdatetime" type="text" value="{{visitdatetime | amDateFormat:'DD MMM YYYY HH:mm:ss'}}" class="form-control" readonly />
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Customer Notes</label>
+            <div class="col-md-6">
+              <textarea id="customernotes" name="customernotes" type="text" formControlName="customernotes" class="form-control input-md text-capitalize" rows="5" readonly></textarea>
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+		  <div *ngIf="isCommentExist" class="form-group">
+			<label class="col-md-3 control-label" for="issuetype">Previous Comment</label>
+			<div class="col-md-6 text-capitalize">	
+				<p>{{previouscomment}}</p><br />
+				<p><a [routerLink]="['/tenant-update-issue/comments', issueid]" class="btn btn-default" title="View More">View More</a></p>		
+			</div>
+			<div class="col-md-3"></div>
+		  </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Add Comment</label>  
+            <div class="col-md-6">
+              <textarea id="addcomments" name="addcomments" type="text" formControlName="addcomments" class="form-control input-md" rows="5"></textarea>
+					<div *ngIf="issueEditForm.get('addcomments').dirty && issueEditForm.get('addcomments').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('addcomments').errors.pattern">Please enter valid characters only(Special characters and blank space not allowed)</div>
+						<div *ngIf="issueEditForm.get('addcomments').errors.required">Please enter comments</div>
+					</div> 			  
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="issuetype">Additional Notes</label>
+            <div class="col-md-6">
+              <textarea id="additionalnotes" name="additionalnotes" type="text" formControlName="additionalnotes" class="form-control input-md" rows="5" readonly></textarea>
+<!-- 					<div *ngIf="issueEditForm.get('additionalnotes').dirty && issueEditForm.get('additionalnotes').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('additionalnotes').errors.pattern">Please enter valid characters only(Special characters and blank space not allowed)</div>
+						<div *ngIf="issueEditForm.get('additionalnotes').errors.required">Please enter additional notes</div>
+					</div> --> 			  
+            </div>
+			<div class="col-md-3"></div>
+          </div>		  
+          <!-- Button -->		  
+          <div class="form-group">
+            <label class="col-md-3 control-label" for="submit"></label>
+            <div class="col-md-6">
+              <button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!issueEditForm.valid">UPDATE</button>
+            </div>
+			<div class="col-md-3"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+	</div>
+</div>
+</div>
+</div>
+<agent-landing-footer></agent-landing-footer>

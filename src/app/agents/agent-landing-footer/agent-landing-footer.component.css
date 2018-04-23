@@ -1,0 +1,16 @@
+.fa:hover { opacity: 0.7; }
+.social_icons_footer { background: #3B5998; color: white; font-size: 12px; margin: 5px 2px; padding: 7px; text-align: center; text-decoration: none; width: 24px; }
+.custom_icon { width:5px; height:5px; font-size: 18px; color : white; background-color:#38589f; padding:4px; }
+.custom_text { font-size:10px; color:#f9f7f5; font-family: 'Open Sans', sans-serif; }
+.last_head { text-align: center; padding-top:5px; color:#f9f7f5; }
+.footer { height: 100px; margin-bottom: 0px; background-color: #828282; margin-top: 30px; width: 100%; left:0; bottom:0; }
+.padding_20 { padding: 0 20%; }
+/* --------------------- Media Queries ---------------------------- */
+@media only screen and (min-width: 320px) and (max-width : 767px) {
+	.custom_text { float: left; }
+	.footer { height: 145px; }
+}
+@media only screen and (min-width: 320px) and (max-width : 767px) and (orientation: landscape) {
+	.custom_text { float: none; text-align: center; }
+	.footer { height: 145px; }
+}

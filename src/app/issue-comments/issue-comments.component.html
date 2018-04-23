@@ -1,0 +1,28 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				<h3>Comments for Issue #{{issueid}}</h3>
+				</div><!-- /col-sm-12 -->
+			</div><!-- /row -->
+			<div *ngFor="let record of records" class="row">
+				<div class="col-sm-1">
+					<div class="thumbnail">
+					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+					</div><!-- /thumbnail -->
+				</div><!-- /col-sm-1 -->
+				<div class="col-sm-5">
+					<div class="panel panel-default">
+					<div class="panel-heading">
+					<strong>{{record.updated_user_fullname}} ({{record.user_type}})</strong> <span class="text-muted">commented on {{record.updated_at |  date:'dd-MM-yyyy hh:mm:ss'}}</span>
+					</div>
+					<div class="panel-body">{{record.user_comments}}</div><!-- /panel-body -->
+					</div><!-- /panel panel-default -->
+				</div><!-- /col-sm-5 -->
+			</div>
+		</div>
+    </div>
+<!-- /#page-wrapper -->
+</div>

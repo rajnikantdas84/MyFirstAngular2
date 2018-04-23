@@ -1,0 +1,168 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+          <form [formGroup]="adminForm" class="form-horizontal" name="form" (ngSubmit)="addAdmin()">
+		  <input type="hidden" name="agenttype" id="agenttype" formControlName="agenttype" value="serviceprovider" />
+          <fieldset>
+          <!-- Form Name -->
+          <legend class="page_heading">Add New Admin</legend>
+          <!-- Text input-->   
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="adminname">Admin Name</label>  
+            <div class="col-md-8">
+              <input id="adminname" name="adminname" type="text" formControlName="adminname" class="form-control">
+		          <div *ngIf="adminForm.get('adminname').touched && adminForm.get('adminname').invalid" class="alert alert-danger">
+                <div *ngIf="adminForm.get('adminname').errors.required">Please enter admin name</div>
+              </div>                            
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="adminusername">Admin Username</label>  
+            <div class="col-md-8">
+            <input id="adminusername" name="adminusername" type="text" formControlName="adminusername" class="form-control">
+		          <div *ngIf="adminForm.get('adminusername').touched && adminForm.get('adminusername').invalid" class="alert alert-danger">
+                <div *ngIf="adminForm.get('adminusername').errors.required">Please enter admin username</div>
+                <div *ngIf="adminForm.get('adminusername').errors.pattern">Username cannot contain space</div>
+                <div *ngIf="adminForm.get('adminusername').errors.isUserUnique">Username already exists</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="adminemail">Email Address</label>  
+            <div class="col-md-8">
+            <input id="adminemail" name="adminemail" type="adminemail" formControlName="adminemail" class="form-control input-md">
+		          <div *ngIf="adminForm.get('adminemail').touched && adminForm.get('adminemail').invalid" class="alert alert-danger">
+					<div *ngIf="adminForm.get('adminemail').errors.required || adminForm.get('adminemail').errors.pattern ">Email is required and format should be <i>john@doe.com</i></div>
+					<div *ngIf="adminForm.get('adminemail').errors.isEmailUnique">Email already exists</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="adminphone">Contact Number</label>  
+            <div class="col-md-8">
+            <input id="adminphone" name="adminphone" type="text" formControlName="adminphone" class="form-control input-md">
+					<div *ngIf="adminForm.get('adminphone').touched && adminForm.get('adminphone').invalid" class="alert alert-danger">
+						<div *ngIf="adminForm.get('adminphone').errors.required">Please enter contact number</div>
+						<div *ngIf="adminForm.get('adminphone').errors.pattern">Please enter valid contact number</div>
+					</div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="alternatephone">Alternate Contact Number</label>  
+            <div class="col-md-8">
+            <input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control input-md">
+				<div *ngIf="adminForm.get('alternatephone').touched && adminForm.get('alternatephone').invalid" class="alert alert-danger">
+					<div *ngIf="adminForm.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+				</div> 
+            </div>
+            <div class="col-md-2"></div>
+          </div>                
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="address">Address</label>  
+            <div class="col-md-8">
+            <textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5"></textarea>
+					<div *ngIf="adminForm.get('address').touched && adminForm.get('address').invalid" class="alert alert-danger">
+						<div *ngIf="adminForm.get('address').errors.required">Please enter address</div>
+					</div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="postcode">Postcode</label>  
+            <div class="col-md-8">
+            <input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control input-md" (change)="getCity()">
+				<div *ngIf="adminForm.get('postcode').touched && adminForm.get('postcode').invalid" class="alert alert-danger">
+					<div *ngIf="adminForm.get('postcode').errors.required">Please enter postcode</div>
+					<div *ngIf="adminForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+					<div *ngIf="invalidPostcode">Invalid postcode</div>
+				</div>				
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+		  
+          <!-- Text input-->
+          <div *ngIf="isCity" class="form-group">
+            <label class="col-md-2 control-label" for="city">City</label>  
+            <div class="col-md-8">
+            <input id="city" name="city" type="text" formControlName="city" class="form-control input-md" readonly>	              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div *ngIf="isCounty" class="form-group">
+            <label class="col-md-2 control-label" for="state">County</label>  
+            <div class="col-md-8">
+				<input id="county" name="county" type="text" formControlName="county" class="form-control input-md" readonly>             
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		 <div *ngIf="isCountry" class="form-group">
+            <label class="col-md-2 control-label" for="country">Country</label>  
+            <div class="col-md-8">
+				<input id="country" name="country" type="text" formControlName="country" class="form-control input-md" readonly>        
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="password">Password</label>  
+            <div class="col-md-8">
+            <input id="password" name="password" type="password"  class="form-control input-md" formControlName="password" />
+			<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</i></div>
+              <div *ngIf="adminForm.get('password').touched && adminForm.get('password').invalid" class="alert alert-danger">
+                <div *ngIf="adminForm.get('password').errors.required">Please enter password</div>
+                <div *ngIf="adminForm.get('password').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</div>
+              </div>              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+		            <!-- Text input-->
+		<div class="form-group">
+            <label class="col-md-2 control-label" for="showpassword"></label>  
+            <div class="col-md-8">
+				<label class="checkbox_link"><input id="checkbox" name="showpassword" type="checkbox" formControlName="showpassword" (change)="showPassword();">	Show Password </label>	
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="confirmpassword">Confirm Password</label>  
+            <div class="col-md-8">
+              <input id="confirmpassword" name="confirmpassword" type="password" class="form-control input-md" formControlName="confirmpassword">              
+              <div *ngIf="adminForm.get('confirmpassword').touched && adminForm.get('confirmpassword').invalid" class="alert alert-danger">
+                <div *ngIf="adminForm.get('confirmpassword').errors.required">Please enter confirm password</div>
+                <div *ngIf="adminForm.get('confirmpassword').errors.MatchPassword">Confirm password not matched</div>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+          </div> 
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="submit"></label>
+            <div class="col-md-8">
+              <button id="submit" name="submit" class="btn btn-primary" [disabled] = "!adminForm.valid">SAVE</button>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

@@ -1,0 +1,14 @@
+/***** Media Query ******/
+
+@media only screen and (min-width: 320px) and (max-width : 767px) {
+	#page-wrapper { margin-top: 70px; }
+	.fa { width: 15px !important; text-align: center; }
+	.fa-fw { width: 15px !important; }
+	.page-header { margin: 10px 0px; }
+	.content_background { margin-top: 70px; }
+	.label-15 { width: 100%;}
+	.advance-search-field-select { width: 100%; margin-left: 0px; }
+	.advance-search-field-todate { width: 100%; margin-left: 0px; }
+	.advance-search-field-fromdate { width: 100%; margin-left: 0px; }
+	.advance-search { width: 100%; }
+}

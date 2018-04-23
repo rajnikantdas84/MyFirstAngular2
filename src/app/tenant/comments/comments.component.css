@@ -1,0 +1,23 @@
+ .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus
+ {
+ 	background-color: #38589f;
+    color:white;
+ }
+.link_align {
+    float:right;
+    font-size: 20px;
+    color: #f00;
+} 
+@media only screen and (min-width: 320px) and (max-width : 767px) {
+	h1, .h1, h2, .h2 { font-size: 20px; }
+	h3, .h3 { font-size: 14px; }
+	.link_align { font-size: 12px; margin-bottom: 15px; }
+	.nav > li > a { padding: 8px; font-size: 12px; }
+	.container { margin: 0px; padding: 0px; }
+	.top-padding { padding: 0px; }
+	.nav-tabs > li { float: none; }
+	.form-horizontal .form-group { margin: 0px; padding: 10px; }
+	.container-fluid { margin-top: 15px; }
+	.head_edit { font-size: 12px; }
+	.table-div { font-size: 10px; }
+}

@@ -1,0 +1,40 @@
+<div class="container">
+	<div class="form-horizontal login" role="form">
+		<div class="form-group top-margin-10">
+			<div class="col-sm-12 align-center">
+				<img src="https://repair.smarttenant.co.uk/assets/images/st_logo_02.png" width="40%" alt="Smart Tenant" />
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-12 ">
+				<h2 class="form-heading-custom">Enter Agent ID</h2>
+			</div>
+		</div>
+		<form class="myform" #f="ngForm" (ngSubmit)="navigateagent(f.value)">
+			<!-- <div *ngIf="invalidAgent" class="alert alert-danger">Please enter valid agent id.</div> -->
+			<div class="form-group">
+				<div class="col-sm-12">
+			<!-- <select class="js-example-basic-single" style="width: 50%" name="selectedagent" id="selectedagent">
+					<option *ngFor="let agent of agentList" value="{{agent.username}}">{{agent.id}}</option>
+					<button (click)="navigateagent()" class="btn btn-primary" id='myButton'>GO</button>
+				</select> -->
+					<input type="text" class="form-control" id="agentid" name="agentid" ngModel placeholder="Enter Agent ID" required autofocus />
+				</div>
+			</div>
+		<div class="form-group">
+			<div class="col-sm-12 align-center">
+				<input type="checkbox" name="terms" id="terms" [ngModel] = "isAccepted" required /> <label>I agree to the <a href="https://smarttenant.co.uk/privacy.php" target="_blank" >Terms and Conditions</a></label>
+			</div>
+		</div>
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4 custom-btn">
+              <button id="submit" name="submit" class="btn btn-primary" [disabled] = "!f.form.valid">Sign In</button>
+            </div>
+			<div class="col-md-4"></div>
+          </div>
+		<div *ngIf="invalidAgent" class="errorMsg">Sorry incorrect ID entered, please contact your landlord or agent.</div>
+		</form>
+	</div>
+</div>
+

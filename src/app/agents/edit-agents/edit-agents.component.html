@@ -1,0 +1,183 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+          <form [formGroup]="editAgentForm" class="form-horizontal" name="editAgentForm" (ngSubmit)="updateAgents()">
+			<input type="hidden" name="agentid" formControlName="agentid" id="agentid" />
+			<input type="hidden" name="auth_key" formControlName="auth_key" id="auth_key" />
+			<input type="hidden" name="auth_token" formControlName="auth_key" id="auth_key" />			
+          <fieldset>
+          <!-- Form Name -->
+          <legend class="page_heading">Edit Agent</legend>
+          <!-- Text input--> 
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="name">Agent Name</label>  
+            <div class="col-md-8">
+              <input id="name" name="name" type="text" formControlName="name" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+<!--          <div class="form-group">
+            <label class="col-md-2 control-label" for="ln">Agent Type</label>  
+            <div class="col-md-8">
+              <select id="agenttype"formControlName="agenttype" class="form-control" readonly>
+                <option value="">Select Agent Type</option>
+                <option *ngFor="let c of categories" [selected]="c.id === agenttype" [value]="c.id">{{c.name}}</option>
+              </select>
+              <div *ngIf="editAgentForm.get('agenttype').touched && editAgentForm.get('agenttype').invalid" class="alert alert-danger">
+                <div *ngIf="editAgentForm.get('agenttype').errors.required">Please select agent type</div>
+              </div> 			  
+            </div>
+          </div> -->
+          <div class="form-group">			
+            <label class="col-md-2 control-label" for="agenttype">Agent Type</label>  
+            <div class="col-md-8">
+				<input type="text" name="agenttype" formControlName="agenttype" class="form-control" id="agenttype" value="Service Provider" readonly />        
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+          <div class="form-group">			
+            <label class="col-md-2 control-label" for="username">Agent Username</label>  
+            <div class="col-md-8">
+				<input id="username" name="username" type="text" formControlName="username" class="form-control" readonly>            
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		  
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="pageurl">Agent Page URL</label>  
+            <div class="col-md-8">
+				<input id="pageurl" name="pageurl" type="text" formControlName="pageurl" class="form-control" readonly>            
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentemail">Email Address</label>  
+            <div class="col-md-8">
+				<input id="email" name="email" type="email" formControlName="email" class="form-control input-md" readonly>              
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="phone">Contact Number</label>  
+            <div class="col-md-8">
+				<input id="phone" name="phone" type="text" formControlName="phone" class="form-control input-md">
+					<div *ngIf="editAgentForm.get('phone').touched && editAgentForm.get('phone').invalid" class="alert alert-danger">
+						<div *ngIf="editAgentForm.get('phone').errors.required">Please enter contact number</div>
+						<div *ngIf="editAgentForm.get('phone').errors.pattern">Please enter valid contact number</div>
+					</div>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="phone">Alternate Contact Number</label>  
+            <div class="col-md-8">
+				<input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control input-md">
+					<div *ngIf="editAgentForm.get('alternatephone').touched && editAgentForm.get('alternatephone').invalid" class="alert alert-danger">
+						<div *ngIf="editAgentForm.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+					</div>				
+              
+            </div>
+			<div class="col-md-2"></div>
+          </div>                
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="address">Address</label>  
+            <div class="col-md-8">
+				<textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5"></textarea>
+				<!--<input id="address" name="address" type="text" formControlName="address" class="form-control input-md"> -->
+					<div *ngIf="editAgentForm.get('address').touched && editAgentForm.get('address').invalid" class="alert alert-danger">
+						<div *ngIf="editAgentForm.get('address').errors.required">Please enter address</div>
+					</div>              
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="postcode">Postcode</label>  
+            <div class="col-md-8">
+				<input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control input-md text-uppercase" (change)="getCity()">
+					<div *ngIf="editAgentForm.get('postcode').touched && editAgentForm.get('postcode').invalid" class="alert alert-danger">
+						<div *ngIf="editAgentForm.get('postcode').errors.required">Please enter postcode</div>
+						<div *ngIf="editAgentForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+					</div>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="city">City</label>  
+            <div class="col-md-8">
+				<input id="city" name="city" type="text" formControlName="city" class="form-control input-md" readonly>	              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="state">County</label>
+            <div class="col-md-8">
+				<input id="county" name="county" type="text" formControlName="county" class="form-control input-md" readonly>             
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		 <div class="form-group">
+            <label class="col-md-2 control-label" for="country">Country</label>  
+            <div class="col-md-8">
+				<input id="country" name="country" type="text" formControlName="country" class="form-control input-md" readonly>        
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+		  <!-- Checkbox Input -->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="changepassword"></label> 
+            <div class="col-md-8">
+				<label class="checkbox_link"><input type="checkbox" name="changepassword" class="checkbox_link" formControlName="changepassword" id="changepassword" (change)="updatePassword();" /> Update Password </label>
+			</div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+		<div *ngIf="isChangePassword" class="form-group">
+            <label class="col-md-2 control-label" for="password">New Password</label>  
+            <div class="col-md-8">
+				<input id="password" name="password" type="password"  class="form-control input-md" formControlName="password" />
+				<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</i></div>				
+              <div *ngIf="editAgentForm.get('password').touched && editAgentForm.get('password').invalid" class="alert alert-danger">
+                <div *ngIf="editAgentForm.get('password').errors.required">Please enter password</div>
+                <div *ngIf="editAgentForm.get('password').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</div>
+              </div>				
+            </div>
+			<div class="col-md-2"></div>
+        </div>
+          <!-- Text input-->
+		<div *ngIf="isChangePassword" class="form-group">
+            <label class="col-md-2 control-label" for="showpassword"></label>  
+            <div class="col-md-8">
+				<label class="checkbox_link"><input id="checkbox" class="checkbox_link" name="showpassword" type="checkbox" formControlName="showpassword" (change)="showPassword();">	Show Password </label>		
+            </div>
+			<div class="col-md-2"></div>
+          </div>		
+          <!-- Button -->
+		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="submit"></label>
+            <div class="col-md-8">
+              <button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!editAgentForm.valid">UPDATE</button>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

@@ -1,0 +1,58 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">                    
+                    <a [routerLink]="['/admin/add-admin']" class="btn btn-primary admin-add-btn" title="Add Admin">Add New Admin</a>
+                    <div class="breadcrumb">
+                        <div id="new-search-area"></div>
+                    </div>
+                </div>
+            </div>
+			<!-- View Agent List Start -->
+			<div class="row">
+			  <div class="col-lg-12">
+				<h3 class="result-heading">Admin List</h3>
+				<div class="table-responsive">
+				  <table id="example" class="table table-bordered table-hover">
+					<thead>
+						<tr class="row-heading row_background">
+							<th>Id</th>
+							<th>Admin Name</th>
+							<th>Agent Username</th>
+							<th>Agent Email Address</th>
+							<th>Agent Contact Number</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let result of agentList" role="row" class="row-content">
+					  <td>{{result.id}}</td>
+					  <td>{{result.name}}</td>
+					  <td>{{result.username}}</td>
+					  <td>{{result.email}}</td>
+					  <td>{{result.phone}}</td>
+					  <td *ngIf="result.status == 1">Active</td>
+					  <td *ngIf="result.status == 2">Deactive</td>
+					  <td>
+						<a [routerLink]="['/admin/edit-agents', result.username]" class="btn btn-default" title="Edit">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<span *ngIf="result.status == 1" class="glyphicon glyphicon-ban-circle btn btn-default" (click)="confirmDialog(result.id,1)" title="Deactivate"></span>
+						<span *ngIf="result.status == 2" class="glyphicon glyphicon-ok-circle btn btn-default" (click)="confirmDialog(result.id,2)" title="Activate"></span>
+					  </td>
+					</tr>
+					</tbody>
+				  </table>
+				</div>    
+			  </div>
+			</div>
+			<!-- View Agent List End -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

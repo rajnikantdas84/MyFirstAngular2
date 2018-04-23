@@ -1,0 +1,196 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "assets/css/login.css";
+@import "assets/css/theme.css";
+@import "assets/css/sb-admin.css";
+@import "assets/font-awesome/css/font-awesome.min.css";
+@import "assets/css/dropzone.css";
+
+
+.circle { 
+	/*background: #38589f;*/
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px 0px;
+}
+
+.hiddenElement { display: none !important; }
+.dt-buttons { float: right;}
+.buttons-html5 {
+	width: 70px;
+    display: block;
+    float: left;
+    text-align: center;
+    padding: 6px;
+    background-color: #337ab7;
+    color: #fff;
+    margin: 0 10px 10px 0px;	
+}
+.buttons-html5:hover {
+    color: #fff;
+    text-decoration: none;
+}
+textarea {
+   resize: none;
+}
+.advance-search { border: 1px solid #ccc; padding: 10px; width: 65%; }
+.advance-date { margin: 20px 0px;}
+.fromdate { width: 30%; float: left; }
+.advance-search-field-fromdate {
+	border: 1px solid #fff;
+	font-family: open sans,sans-serif;
+	font-weight: 200;
+	margin-left: 10px;
+	padding: 5px 5px 5px 15px;
+	width: 98%;
+	height: 40px; 
+}
+.todate { width: 30%; }
+.margin-left-10 { margin-left: 10px; }
+.advance-search-field-todate {
+	border: 1px solid #fff;
+	font-family: open sans,sans-serif;
+	font-weight: 200;
+	margin-left: 10px;
+	padding: 5px 5px 5px 15px;
+	width: 98%;
+	height: 40px;
+}
+.advance-search-field-select {
+	border: 1px solid #fff;
+	font-family: open sans,sans-serif;
+	font-weight: 200;
+	margin-left: 10px;
+	padding: 5px 5px 5px 15px;
+	width: 63%;
+	height: 40px;
+}
+.label-15 { width: 20%; padding: 10px; float: left; }
+.label-5 { width: 35px; padding: 10px; float: left; text-align: center; }
+.pointer-link { cursor: pointer; }
+.full-width { width: 100%; }
+.half-width { width: 50%; }
+.admin-add-btn { margin: 15px 0 30px 0; }
+.border-bottom { border-bottom: 1px solid #eee; padding-bottom: 15px; }
+.dropzone .dz-preview {
+	border-bottom: 1px solid #ccc;
+	padding: 15px 0px;
+}
+.checkbox_link { font-weight: normal; cursor: pointer;}
+.fa { width: 24px !important; text-align: center; }
+.fa-fw { width: 24px !important; }
+#example_filter label { width: 100%; }
+.text-center { text-align: center; }
+#example_length > label {
+    font-size: 12px;
+    font-weight: initial;
+}
+.tenant-background {
+    background-color: #e6e6e6;
+}
+.top-padding { padding: 3em 0px; }
+.white-background {
+    background-color: #fff;
+}
+.no-border { border: none; }
+.link_align {
+    float:right;
+    font-size: 20px;
+    color: #38589f;
+}
+.row-heading { font-size: 12px; }
+.row-content { font-size: 12px; }
+.result-heading { 
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+.dropzone .dz-message { margin: 3em 0px !important }
+.table-search {
+    border: 1px solid #ccc;
+    font-family: open sans,sans-serif;
+    font-weight: 200;
+    margin-left: 10px;
+    padding: 5px 5px 5px 15px;
+    width: 60%;
+    height:40px;
+    background: #e6e6e6 url('/assets/images/search-icon.png') no-repeat scroll 99%;
+}
+#example_filter label { width: 100%; }
+.dataTables_wrapper .dataTables_paginate { font-size: 12px;}
+.dataTables_wrapper .dataTables_info { font-size: 12px; }
+.heading-bottom-border{
+    border-bottom: 1px solid rgb(204, 204, 204);
+    padding: 0 0 10px;
+}
+.goog-te-banner-frame.skiptranslate{display:none!important;}
+.property  {
+    top: 0px !important;
+}
+.header{ background-color: #38589f; color: #fff; }
+.nav.navbar-nav{ background-color: #38589f; color: #fff; }
+.language_selector {
+    max-width: 40%;
+    background-color: #38589f;
+    color: #fff;
+    border: none;
+    -moz-appearance: none;
+}
+.alertboxmargin { margin: 0 5px; }
+.glyphicon-ban-circle { color: red;}
+.glyphicon-ok-circle { color: green; }
+
+@media only screen and (min-width: 320px) and (max-width : 767px) {
+	.content_background { margin-top: 70px; }
+    #page-wrapper { margin-top: 75px; }
+	.label-15 { width: 100%;}
+	.advance-search-field-select { width: 100%; margin-left: 0px; }
+	.advance-search-field-todate { width: 100%; margin-left: 0px; }
+	.advance-search-field-fromdate { width: 100%; margin-left: 0px; }
+	.advance-search { width: 100%; }
+	.todate { width: 100%; }
+	.fromdate { width: 100%; }
+	.label-5 { width: 100%; text-align: center;}
+	.advance-search-button { text-align: center; }
+}
+@media screen and (min-width: 768px)and (max-width: 1023px) {
+	.label-15 { width: 100%;}
+	.advance-search-field-select { width: 100%; margin-left: 0px; }
+	.advance-search-field-todate { width: 100%; margin-left: 0px; }
+	.advance-search-field-fromdate { width: 100%; margin-left: 0px; }
+	.advance-search { width: 100%; }
+	.todate { width: 100%; }
+	.fromdate { width: 100%; }
+	.label-5 { width: 100%; text-align: center;}
+	.advance-search-button { text-align: center; }	
+}
+@media screen and (min-width: 768px)and (max-width: 1024px) and (orientation: landscape) {
+	.label-15 { width: 100%;}
+	.advance-search-field-select { width: 100%; margin-left: 0px; }
+	.advance-search-field-todate { width: 100%; margin-left: 0px; }
+	.advance-search-field-fromdate { width: 100%; margin-left: 0px; }
+	.advance-search { width: 100%; }
+	.todate { width: 100%; }
+	.fromdate { width: 100%; }
+	.label-5 { width: 100%; text-align: center;}
+	.advance-search-button { text-align: center; }	
+}
+@media screen and (max-width: 768px)
+{
+    .table-search { background-color: white; width: 80%; }
+    .dataTables_wrapper .dataTables_paginate { font-size: 12px; padding: 20px; }
+	.label-15 { width: 100%;}
+	.advance-search-field-select { width: 100%; margin-left: 0px; }
+	.advance-search-field-todate { width: 100%; margin-left: 0px; }
+	.advance-search-field-fromdate { width: 100%; margin-left: 0px; }
+	.advance-search { width: 100%; }
+	.todate { width: 100%; }
+	.fromdate { width: 100%; }
+	.label-5 { width: 100%; text-align: center;}
+	.advance-search-button { text-align: center; }	
+}
+
+@media screen and (min-width: 1024px)and (max-width: 1366px) and (orientation: portrait) {
+	.advance-search { width: 99%; }
+}

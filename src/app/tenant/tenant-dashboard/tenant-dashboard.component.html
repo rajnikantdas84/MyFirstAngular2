@@ -1,0 +1,157 @@
+<agent-landing-header></agent-landing-header>
+<div class="container-fluid tenant-background">
+<div class="container"  id="js-heightControl">
+	<div class="col-md-6 col-sm-12 col-xs-12"><h2>{{tenantName}}</h2></div>
+	<div class="col-md-6 col-sm-12 col-xs-12">
+		<h3><a class="link_align" [routerLink]="['/page', agentUsername]">Click here to report issue</a></h3>
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12" >
+	<ul class="nav nav-tabs hover_effect white-background">
+		<li [ngStyle]="{'background-color': bannercolor}"><a data-toggle="tab" id="acitve_link" [ngStyle]="{'color': '#fff'}" (mouseover)="onMouseOver('acitve_link')" (mouseout)="onMouseOut('acitve_link')" href="#r_issue">Reported Issue</a></li>
+		<li ><a [routerLink]="['/tenant-dashboard/accountinfo']">Account Information</a></li>
+	</ul>
+	<div class="tab-content">
+		<div id="r_issue" class="tab-pane fade in active">
+			<div class="col-md-12 issue_div"><h3 class="head_edit">Recent Reported Issue</h3></div>  
+			<div *ngIf="recentIssue" class="table-div">
+				<table class="table table-hover white-background">
+				<thead>
+					<tr style="border:none;">
+						<th>Issue ID</th>
+						<th>Date</th>
+						<th>Issue Type</th>
+						<th>Agent Name</th>
+						<th>Agent Contact Number</th>
+						<th>Agent Email</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['id']}}</td>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['issue_created_date'] | amDateFormat:'DD MMM YYYY HH:mm:ss'}}</td>
+				  <td class="text-capitalize pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['cat_name']}}</td>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['agent_name']}}</td>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['agent_phone']}}</td>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['agent_email']}}</td>
+				  <td class="pointer-link" (click) = "editIssue(recentIssueDetails['id'])">{{recentIssueDetails['status']}}</td>
+				  <td>
+					<a [routerLink]="['/tenant-update-issue', recentIssueDetails['id']]" class="btn btn-default" title="View/Edit">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+				  </td>
+				</tr>
+				</tbody>
+				</table>
+			</div>
+			<div *ngIf="!recentIssue" class="table-div">No Issue Found!</div>			      
+			<div *ngIf="recentIssue" class="col-md-6"><h3 class="head_edit">View All Issue</h3></div>  
+			<div *ngIf="recentIssue" class="col-md-6" id="new-search-area"></div>
+			<div *ngIf="recentIssue" class="col-md-12">
+<form id="myform">
+        <div class="form-group" style="margin-top:20px;"><label><a href="javascript:;" data-toggle="collapse" id="adv-search" data-target="#advance-search">Advance Search <i class="fa fa-fw fa-caret-down"></i></a></label></div>
+        <div id="advance-search" class="collapse advance-search">						 
+			<div class="advance-issuestatus">
+				<label class="control-label label-15" for="issuestatus">Issue Status:</label> 
+				<select id="issuestatus" name="issuestatus" class="advance-search-field-select" >
+					<option value="All" selected="selected" >All</option>
+					<option value="Open" >Open</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Closed">Closed</option>
+				</select> 			  
+			</div>
+			<div class="advance-date">
+				<label class="control-label label-15" for="issuestatus">Raised Between:</label>  
+				<div class="input-group fromdate date" id="fromdatetimepicker">	
+					<input type="text" class="advance-search-field-fromdate" id="fromdate" name="fromdate"  />
+					<span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>			
+				</div>
+				<label class="control-label label-5" for="issuestatus">To</label> 
+				<div class="input-group todate date" id="todatetimepicker">	
+					<input type="text" class="advance-search-field-todate" id="todate" name="todate"  />
+					<span class="input-group-addon"><span class="glyphicon-calendar glyphicon"></span></span>			
+				</div>
+			</div>
+			<div class="advance-search-button">
+				<label class="control-label label-15" for="issuestatus">&nbsp;</label>
+				<button id="submitissue" name="submitissue" type="button" class="btn btn-primary btn-search text-uppercase margin-left-10">Search</button>
+				<button id="clearbtn" type="button" class="btn btn-primary btn-search text-uppercase margin-left-10" (click)="resetForm()">Clear</button>
+			</div>
+        </div>
+</form>			
+			</div>
+			<div *ngIf="recentIssue" class="table-div">
+				<table id="example" class="table table-hover white-background">
+				<thead>
+					<tr>
+						<th>Issue ID</th>
+						<th>Date</th>
+						<th>Issue Type</th>
+						<th>Agent Name</th>
+						<th>Agent Contact Number</th>
+						<th>Agent Email</th>
+						<th>Status</th>
+						<th data-visible="false" class="hiddenElement">Customer Name</th>
+						<th data-visible="false" class="hiddenElement">Customer Email</th>
+						<th data-visible="false" class="hiddenElement">Customer Contact Number</th>
+						<th data-visible="false" class="hiddenElement">Customer Alternate Number</th>
+						<th data-visible="false" class="hiddenElement">Customer Postcode</th>
+						<th data-visible="false" class="hiddenElement">Customer Address</th>
+						<th data-visible="false" class="hiddenElement">Customer City</th>
+						<th data-visible="false" class="hiddenElement">Customer County</th>
+						<th data-visible="false" class="hiddenElement">Customer County</th>
+						<th data-visible="false" class="hiddenElement">Issue Description</th>
+						<th data-visible="false" class="hiddenElement">Additional Notes</th>
+						<th data-visible="false" class="hiddenElement">Manufacturer</th>
+						<th data-visible="false" class="hiddenElement">Model Number</th>
+						<th data-visible="false" class="hiddenElement">Serial Number</th>
+						<th data-visible="false" class="hiddenElement">Date and Time for Visit</th>
+						<th data-visible="false" class="hiddenElement">Last Updated Date</th>
+						<th data-visible="false" class="hiddenElement">Customer Type</th>
+						<!-- <th data-visible="false" class="hiddenElement">Vulnerable Property</th> -->						
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let record of records" role="row">
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.id}}</td>
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.issue_created_date | amDateFormat:'DD MMM YYYY HH:mm:ss'}}</td>
+				  <td class="text-capitalize pointer-link" (click) = "editIssue(record.id)">{{record.cat_name}}</td>
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.agent_name}}</td>
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.agent_phone}}</td>
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.agent_email}}</td>
+				  <td class="pointer-link" (click) = "editIssue(record.id)">{{record.status}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_name}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_email}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_phone}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_alternatephone}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_postcode}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_address}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_city}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_county}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_country}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.issue_description}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.additional_notes}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.manufacturer}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.modelnumber}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.serialnumber}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.want_to_be_present}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.lastupdated_date | amDateFormat:'DD MMM YYYY HH:mm:ss'}}</td>
+				  <td data-visible="false" class="hiddenElement">{{record.tenant_type}}</td>
+				  <!-- <td data-visible="false" class="hiddenElement">{{record.vulnerableproperty}}</td> -->				  
+				  <td>
+					<a [routerLink]="['/tenant-update-issue', record.id]" class="btn btn-default" title="View/Edit">
+						<span class="glyphicon glyphicon-pencil"></span>
+					</a>
+				  </td>
+				</tr>
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+<agent-landing-footer></agent-landing-footer>

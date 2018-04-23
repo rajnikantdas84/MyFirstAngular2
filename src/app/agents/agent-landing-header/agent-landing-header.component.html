@@ -1,0 +1,44 @@
+<nav class="navbar navbar-inverse" [ngStyle]="{'background-color': bannercolor}">
+  <div class="container">
+    <div class="navbar-header collapse_menu" [ngStyle]="{'background-color': bannercolor}">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>  
+    <div class="navbar-header header_logo">
+		<img *ngIf="exitLogo" src="{{siteurl}}/uploadimages/logoimages/{{exitLogo}}" />
+		<img *ngIf="!exitLogo" src="{{siteurl}}/uploadimages/logoimages/nologo.png" />
+		<!-- <h4 *ngIf="!exitLogo" class="main_heading">TENANT REPAIR REPORT SYSTEM</h4> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-language" [ngStyle]="{'background-color': bannercolor}">
+		<li class="n_list"><a (click)="changeLanguage(preferredLanguage1)">{{preferredLanguageName1}}</a></li>
+		<li class="n_list"><a (click)="changeLanguage(preferredLanguage2)">{{preferredLanguageName2}}</a></li>
+		<li class="n_list"><a (click)="changeLanguage(preferredLanguage3)">{{preferredLanguageName3}}</a></li>						
+		<li class="language_list"><i class="ion-android-globe"></i>
+			<select id="language_selector" class="language_selector" (change)="getLanguage($event)" [ngStyle]="{'background-color': bannercolor}">
+				<option *ngFor="let language of languageList" [ngClass]="{notranslate: language.id == 8}" value={{language.value}} [attr.selected]="language.value == defaultLanguage ? true : null">{{language.name}} ({{language.actual_letters}})</option>
+			</select>							
+		</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" [ngStyle]="{'background-color': bannercolor}">
+		<li *ngIf="!customerDisplayName" class="welcome_list"><a [routerLink]="['/tenant-login', agentUsername]">Login</a></li>
+		<li *ngIf="customerDisplayName" class="welcome_list dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Welcome {{customerName}} <b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li>
+					<a routerLink = "/tenant-dashboard"><i class="fa fa-fw fa-user"></i>Dashboard</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a (click)="logOutTenant()"><i class="fa fa-fw fa-power-off"></i>Sign Out</a>
+				</li>
+			</ul>
+		</li>
+		<li class="welcome_list"><a (click)="logOutAgent()">Change Agent</a></li> <!-- Enable for mobile app only -->
+      </ul>
+    </div>
+  </div>
+</nav>

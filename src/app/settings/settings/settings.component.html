@@ -1,0 +1,105 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+			
+			<legend class="page_heading">Settings</legend>
+			<form [formGroup]="defaultSettingForm" class="form-horizontal" name="defaultSettingForm" (ngSubmit)="updateSetting()">
+				<input type="hidden" name="logoimage" id="logoimage" formControlName="logoimage" />
+				<input type="hidden" name="selectedagent" id="selectedagent" formControlName="selectedagent" />
+				<fieldset>					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage1">Preferred Language 1</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage1" formControlName="preferredlanguage1" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>						
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage2">Preferred Language 2</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage2" formControlName="preferredlanguage2" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>						
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage3">Preferred Language 3</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage3" formControlName="preferredlanguage3" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>						
+						</div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="emailnotification">When a New Issue Reported</label>
+						<div class="col-md-8">
+							<select id="emailnotification" formControlName="emailnotification" name="emailnotification" class="form-control no_radius">
+								<option value="1">Always email issue report</option>
+								<option value="2">Disable email issue report</option>
+							</select>
+						</div>
+					</div>
+<!-- 					<div *ngIf="isAgent" class="form-group">
+						<label class="col-md-2 control-label" for="emailcc">Add Email CC</label>						
+						<div class="col-md-8">							
+							<textarea id="emailcc" name="emailcc" type="text" formControlName="emailcc" class="form-control input-md" rows="3" resize="none"></textarea>
+							<div><i>Use the Email CC field to enter additional email addresses. Any email sent to the agent will also be sent to all addressees entered here. Multiple addresses should be separated by a semi-colon(;)</i></div>							
+							<div *ngIf="defaultSettingForm.get('emailcc').touched && defaultSettingForm.get('emailcc').invalid" class="alert alert-danger">
+								<div *ngIf="defaultSettingForm.get('emailcc').errors.pattern">Please enter valid email addressees.</div>
+							</div>							
+						</div>
+					</div> -->					
+					<div *ngIf="imagename" class="form-group">
+						<label class="col-md-2 control-label" for="logoimage">Existing Logo</label>
+						<div class="col-md-8">
+							<img src="{{siteurl}}/uploadimages/logoimages/{{imagename}}" width="150px" alt="{{imagename}}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="logoimage">Upload Logo</label>
+						<div class="col-md-8">
+							<div class="upload-area logoimagediv" [dropzone]="defaultlogo_config" (error)="onUploadError($event)" (success)="onUploadSuccess($event)" (canceled)="onUploadCanceled($event)" (removedfile)="onRemove($event)">
+							</div>
+							<span>Max file size limit 6MB. Minimum width should be 300px.</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="bannercolor">Banner Color</label>						
+						<div class="col-md-8">							
+							<input id="bannercolor" name="bannercolor" formControlName="bannercolor" class="form-control" type="text" />
+							<div [ngStyle]="{'background-color': bannercolor}" class="circle"></div>
+						</div>						
+					</div>
+<!-- 					<div *ngIf="isAgent" class="form-group">
+						<label class="col-md-2 control-label" for="emailcc">Add Email Footer</label>						
+						<div class="col-md-8">							
+							<textarea id="email_footer" name="email_footer" type="text" formControlName="email_footer" class="form-control input-md" rows="4" resize="none"></textarea>
+						</div>
+					</div> -->					
+					
+<!-- 					<div class="form-group">
+						<label class="col-md-2 control-label" for="logoalignment">Alignment</label>
+						<div class="col-md-8">
+							Left<input id="logoalignment" name="logoalignment" formControlName="logoalignment" value="left" type="radio">
+							Center<input id="logoalignment" name="logoalignment" formControlName="logoalignment" value="center" type="radio">
+							Right<input id="logoalignment" name="logoalignment" formControlName="logoalignment" value="right" type="radio">
+							Full Width<input id="logoalignment" name="logoalignment" formControlName="logoalignment" value="full" type="radio">
+						</div>
+					</div> -->					
+					<!-- Button -->		  
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="submit"></label>
+						<div class="col-md-8">
+							<button id="submit" name="submit" class="btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}">Save Settings</button>
+							<button id="revert" name="revert" class="btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" (click) = "revertSetting()">Revert to Default</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

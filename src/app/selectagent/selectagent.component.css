@@ -1,0 +1,33 @@
+.form-heading-custom {
+	color: #fff;
+	text-align: center;
+}
+.container { background-color: #323232;}
+.top-margin-10 { margin-top:10%;}
+.custom-btn {
+	text-align: center;
+}
+.property { background-color: #323232; }
+.align-center { text-align: center; }
+.btn { font-size: 30px; }
+.btn-primary {
+    color: #fff;
+    background-color: #323232;
+    border-color: #323232;
+	width: 50%;
+}
+.btn-primary:active:hover {
+    background-color: #323232;
+    border-color: #323232;	
+}
+.btn:active, .btn.active { box-shadow: none !important;}
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus { outline: none !important; }
+.errorMsg {
+	color: #f00;
+	font-size: 11px;
+	margin: 20px 0;
+}
+
+.form-horizontal.login{
+ min-height:100vh !important;
+}

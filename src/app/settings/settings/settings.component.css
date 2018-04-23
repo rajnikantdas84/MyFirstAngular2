@@ -1,0 +1,9 @@
+.dz-image {
+    width: auto !important;
+    height: auto !important;
+}
+.dropzone { 
+    border: 1px solid !important;
+    padding: 20px 5px;
+}
+.logoimagediv { width: 300px; }

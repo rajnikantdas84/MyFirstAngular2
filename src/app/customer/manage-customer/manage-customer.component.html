@@ -1,0 +1,71 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">                    
+                    <legend class="page_heading">Manage Customers</legend>
+                    <div class="breadcrumb">
+                        <div id="new-search-area"></div>
+                    </div>
+                </div>
+            </div>
+			<!-- View Customer List Start -->
+			<div class="row">
+			  <div class="col-lg-12">
+				<h3 class="result-heading">Customer List</h3>
+				<div class="table-responsive">
+				  <table id="example" class="table table-bordered table-hover">
+					<thead>
+						<tr class="row-heading row_background">
+							<th>Id</th>
+							<th>Customer Name</th>
+							<th>Customer Email Address</th>
+							<th>Customer City</th>
+							<th>Customer Contact Number</th>
+							<th>Status</th>
+							<th data-visible="false" class="hiddenElement">Customer Alternate Number</th>
+							<th data-visible="false" class="hiddenElement">Customer Address</th>
+							<th data-visible="false" class="hiddenElement">Customer Postcode</th>
+							<th data-visible="false" class="hiddenElement">Customer City</th>
+							<th data-visible="false" class="hiddenElement">Customer County</th>
+							<th data-visible="false" class="hiddenElement">Customer Country</th>							
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let result of customerList" role="row" class="row-content">
+					  <td class="pointer-link" (click) = "editCustomer(result.id)">{{result.id}}</td>
+					  <td class="pointer-link" (click) = "editCustomer(result.id)">{{result.name}}</td>
+					  <td class="pointer-link" (click) = "editCustomer(result.id)">{{result.email}}</td>
+					  <td class="pointer-link" (click) = "editCustomer(result.id)">{{result.city}}</td>
+					  <td class="pointer-link" (click) = "editCustomer(result.id)">{{result.phone}}</td>
+					  <td *ngIf="result.status == 1">Active</td>
+					  <td *ngIf="result.status == 2">Deactive</td>
+					  <td data-visible="false" class="hiddenElement">{{result.alternate_number}}</td>
+					  <td data-visible="false" class="hiddenElement">{{result.address}}</td>
+					  <td data-visible="false" class="hiddenElement">{{result.postcode}}</td>
+					  <td data-visible="false" class="hiddenElement">{{result.city}}</td>
+					  <td data-visible="false" class="hiddenElement">{{result.county}}</td>
+					  <td data-visible="false" class="hiddenElement">{{result.country}}</td>					  
+					  <td>
+						<a [routerLink]="['/admin/customer-details', result.id]" class="btn btn-default" title="Edit">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<span *ngIf="result.status == 1" class="glyphicon glyphicon-ban-circle btn btn-default" (click)="confirmDialog(result.id,1)" title="Deactivate"></span>
+						<span *ngIf="result.status == 2" class="glyphicon glyphicon-ok-circle btn btn-default" (click)="confirmDialog(result.id,2)" title="Activate"></span>
+						<span class="glyphicon glyphicon-trash btn btn-default" (click)="removeTenant(result.id,result.name)" title="Remove"></span>
+					  </td>
+					</tr>
+					</tbody>
+				  </table>
+				</div>    
+			  </div>
+			</div>
+			<!-- View Customer List End -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

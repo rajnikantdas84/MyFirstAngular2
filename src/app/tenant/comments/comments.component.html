@@ -1,0 +1,42 @@
+<agent-landing-header></agent-landing-header>
+<div class="container-fluid tenant-background">
+<div class="container"  id="js-heightControl">
+	<div class="col-md-6 col-sm-12 col-xs-12"><h1>{{tenantName}}</h1></div>
+	<div class="col-md-6 col-sm-12 col-xs-12">
+		<h3><a class="link_align" [routerLink]="['/page', agentUsername]">Click here to report issue</a></h3>
+	</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<ul class="nav nav-tabs hover_effect white-background">
+		<li><a [routerLink]="['/tenant-dashboard']">Reported Issue</a></li>
+		<li><a [routerLink]="['/tenant-dashboard/accountinfo']">Account Information</a></li>
+		<li><a [routerLink]="['/tenant-update-issue', issueid]">Issue Details</a></li>
+		<li [ngStyle]="{'background-color': bannercolor}"><a data-toggle="tab" id="acitve_link" [ngStyle]="{'color': '#fff'}" (mouseover)="onMouseOver('acitve_link')" (mouseout)="onMouseOut('acitve_link')" [routerLink]="['/tenant-update-issue', issueid]">Issue Comments</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+				<h3>Comments for Issue #{{issueid}}</h3>
+				</div><!-- /col-sm-12 -->
+			</div><!-- /row -->
+			<div *ngFor="let record of records" class="row">
+				<div class="col-sm-1">
+					<div class="thumbnail">
+					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+					</div><!-- /thumbnail -->
+				</div><!-- /col-sm-1 -->
+				<div class="col-sm-5">
+					<div class="panel panel-default">
+					<div class="panel-heading">
+					<strong>{{record.updated_user_fullname}} ({{record.user_type}})</strong> <span class="text-muted">commented on {{record.updated_at |  amDateFormat:'DD MMM YYYY HH:mm:ss'}}</span>
+					</div>
+					<div class="panel-body">{{record.user_comments}}</div><!-- /panel-body -->
+					</div><!-- /panel panel-default -->
+				</div><!-- /col-sm-5 -->
+			</div>
+		</div>	
+	</div>
+</div>
+</div>
+</div>
+<agent-landing-footer></agent-landing-footer>

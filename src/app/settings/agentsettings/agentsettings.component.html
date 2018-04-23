@@ -1,0 +1,98 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+			
+			<legend class="page_heading">Agent Settings</legend>
+			<form [formGroup]="agentSettingForm" class="form-horizontal" name="agentSettingForm" (ngSubmit)="updateSetting()">
+				<input type="hidden" name="logoimage" id="logoimage" formControlName="logoimage" />
+				<fieldset>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="selectedagent">Select Agent</label>
+						<div class="col-md-8">
+							<select id="selectedagent" name="selectedagent" formControlName="selectedagent" class="form-control no_radius" (change) = "checkAgent()">
+								<option value="">Select Agent</option>
+								<option *ngFor="let list of agentList" value="{{list.username}}">{{list.name}} ({{list.email}})</option>
+							</select>
+							<div *ngIf="selectagentError" class="alert alert-danger">Please select any agent</div>
+						</div>
+					</div>				
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage1">Preferred Language 1</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage3" formControlName="preferredlanguage1" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>	
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage2">Preferred Language 2</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage2" formControlName="preferredlanguage2" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>						
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="preferredlanguage3">Preferred Language 3</label>
+						<div class="col-md-8">
+							<select id="preferredlanguage3" formControlName="preferredlanguage3" class="form-control no_radius">
+								<option *ngFor="let language of languageList" value={{language.value}}>{{language.name}} ({{language.actual_letters}})</option>
+							</select>						
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="emailnotification">When a New Issue Reported</label>
+						<div class="col-md-8">
+							<select id="emailnotification" formControlName="emailnotification" class="form-control no_radius">
+								<option value="1">Always email issue report</option>
+								<option value="2">Disable email issue report</option>
+							</select>
+						</div>
+					</div>
+					<div *ngIf="imagename" class="form-group">
+						<label class="col-md-2 control-label" for="logoimage">Existing Logo</label>
+						<div class="col-md-8">
+							<img src="{{siteurl}}/uploadimages/logoimages/{{imagename}}" width="150px" alt="{{imagename}}"/>
+						</div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="logoimage">Upload Logo</label>
+						<div class="col-md-8">
+							<div class="upload-area logoimagediv" [dropzone] = "agentlogo_config" (error)="onUploadError($event)" (success)="onUploadSuccess($event)" (canceled)="onUploadCanceled($event)" (removedfile)="onRemove($event)">
+							</div>
+							<span>Max file size limit 6MB. Minimum width should be 300px.</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="bannercolor">Banner Color</label>						
+						<div class="col-md-8">							
+							<input id="bannercolor" name="bannercolor" formControlName="bannercolor" class="form-control" type="text" />
+							<div id="color-circle" class="circle"></div>
+						</div>						
+					</div>					
+<!-- 					<div class="form-group">
+						<label class="col-md-2 control-label" for="logoalignment">Alignment</label>
+						<div class="col-md-8">
+							Left<input id="logoalignment" formControlName="logoalignment" name="logoalignment" value="left" type="radio">
+							Center<input id="logoalignment" formControlName="logoalignment" name="logoalignment" value="center" type="radio">
+							Right<input id="logoalignment" formControlName="logoalignment" name="logoalignment" value="right" type="radio">
+							Full Width<input id="logoalignment" formControlName="logoalignment" name="logoalignment" value="full" type="radio">
+						</div>
+					</div>	 -->			
+					<!-- Button -->		  
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="submit"></label>
+						<div class="col-md-8">
+							<button id="submit" name="submit" class="btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}">Save Settings</button>
+							<button id="revert" name="revert" class="btn btn-primary text-uppercase" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" (click) = "revertSetting()">Revert to Default</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

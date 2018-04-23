@@ -1,0 +1,65 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid content_background">
+			<form [formGroup]="categoryForm" class="form-horizontal" name="form" (ngSubmit)="addCategory()">
+				<input type="hidden" name="categoryimage" id="categoryimage" formControlName="categoryimage" />
+				<fieldset>
+					<legend class="page_heading">Add New Category</legend>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="categoryname">Category Name</label>  
+						<div class="col-md-8">
+						  <input type="text" id="categoryname" formControlName="categoryname" class="form-control input-md" name="categoryname"  placeholder="Enter Category Name" />
+						  <div *ngIf="categoryForm.get('categoryname').touched && categoryForm.get('categoryname').invalid" class="alert alert-danger">
+							<div *ngIf="categoryForm.get('categoryname').errors.required">Please enter category name</div>
+						  </div>                            
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="parentcategory">Parent Category</label>  
+						<div class="col-md-8">
+							<select id="parentcategory" name="parentcategory" formControlName="parentcategory" class="form-control">
+								<option value="">Select Parent Category</option>
+								<option *ngFor="let cat of categoryList" [value]="cat.cat_id">{{cat.cat_name}}</option>
+							</select>						
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Self Fix</label>  
+						<div class="col-md-8">
+							<textarea id="description" name="description" formControlName="description" type="text" class="form-control input-md" placeholder="Self Fix" rows="5"></textarea>
+						</div>
+						<div class="col-md-2"></div>
+					</div>					
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="notice">Notice</label>  
+						<div class="col-md-8">
+							<textarea id="notice" name="notice" formControlName="notice" type="text" class="form-control input-md" placeholder="Notice" rows="5"></textarea>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="image">Image</label>  
+					<div class="col-md-8">
+						<div class="upload-area logoimagediv" [dropzone]="category_image" (error)="onUploadError($event)" (success)="onUploadSuccess($event)" (canceled)="onUploadCanceled($event)" (removedfile)="onRemove($event)">
+						</div>
+						<span>Max file size limit 2MB. Image dimension should be 52x52 pixels only.</span>
+						<span style="color:red">*Required field.</span>						
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+				<!-- Button -->
+				<div class="form-group">
+					<label class="col-md-2 control-label" for="submit"></label>
+					<div class="col-md-8">
+					  <button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!categoryForm.valid">SAVE</button>
+					</div>
+					<div class="col-md-2"></div>
+				</div>							
+				</fieldset>
+			</form>		
+		</div>
+	</div>
+</div>

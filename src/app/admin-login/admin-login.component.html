@@ -1,0 +1,28 @@
+<div class="main_div">
+  <div class="div_one">
+    <p class="para_one">THE BEST WAY TO MANAGE REPAIRS AND MAINTENANCE</p>
+    <p class="para_two">SMART, WEB-BASED SOFTWARE FOR BLOCK, COMMERCIAL AND PROPERTY PROFESSIONALS</p>
+  </div>
+  <div class="div_two ">
+    <div class="login_form">
+      <h1 class="form_heading">Admin Login</h1>
+      <form class="myform" #f="ngForm" (ngSubmit)="signIn(f.value)">
+        <div *ngIf="invalidLogin" class="alert alert-danger">Invalid username and/or password.</div>
+        <div class="form-group">
+          <input type="text" class="form__input email-input" id="inputUsername" name="username" ngModel placeholder="Username" required autofocus>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form__input password-input" id="inputPassword" name="password" ngModel placeholder="Password" required>
+        </div>
+        <div class="form-group">        
+          <div ><button type="submit" class="btn btn-primary submit_button">Log In</button>
+          </div>
+        </div>
+        <div class="form-group">        
+          <div ><a routerLink="/forgotpassword">Forgot Password</a></div>
+        </div>		
+      </form>
+      </div>
+    </div>
+  </div>
+

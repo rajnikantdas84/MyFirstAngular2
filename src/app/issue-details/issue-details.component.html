@@ -1,0 +1,222 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid background">
+          <form [formGroup]="issueEditForm" class="form-horizontal" name="issueEditForm" (ngSubmit)="updateIssue()">
+		  <input type="hidden" name="logged_in_usertype" id="logged_in_usertype" formControlName="logged_in_usertype" />
+		  <input type="hidden" name="logged_in_userid" id="logged_in_userid" formControlName="logged_in_userid" />
+		  <input type="hidden" name="issueid" id="issueid" formControlName="issueid" />
+		  <input type="hidden" name="logged_in_username" id="logged_in_username" formControlName="logged_in_username" />
+		  <input id="agentid" name="agentid" type="hidden" formControlName="agentid" />
+          <fieldset>
+          <!-- Form Name -->
+          <legend class="page-header">Issue #{{issueid}} {{getstatus}}</legend>
+		  <span class="btn btn-primary" (click)="openPDF()" title="PDF">Download As PDF</span>
+          <!-- Text input-->   
+          <!--<div *ngIf="updatedissue" class="alert alert-success" dismiss-on-timeout="2000">{{successMsg}}</div>-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="issuetype">Issue Type</label>  
+            <div class="col-md-8">
+              <input id="issuetype" name="issuetype" type="text" formControlName="issuetype" class="form-control text-capitalize" readonly>
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <div *ngIf="issueImageExist" class="form-group">
+            <label class="col-md-2 control-label" for="issueimage">Issue Image</label>  
+            <div class="col-md-8 slides">
+				<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="issuestatus">Issue Status</label>  
+            <div class="col-md-8">
+              <select id="issuestatus"formControlName="issuestatus" class="form-control">
+                <option *ngFor="let s of status" [selected]="s.value === issuestatus" [value]="s.value">{{s.name}}</option>
+              </select> 			  
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="additionalnotes">Additional Notes</label>  
+            <div class="col-md-8">
+              <textarea id="additionalnotes" name="additionalnotes" type="text" formControlName="additionalnotes" class="form-control input-md" rows="5" readonly></textarea>		  
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="issuetype">Date Submitted</label>  
+            <div class="col-md-8">
+              <input id="issuecreated" name="issuecreated" value="{{issue_created_date |  date:'dd MMM yyyy hh:mm:ss'}}" type="text" formControlName="issuecreated" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentname">Agent Name</label>  
+            <div class="col-md-8">
+              <input id="agentname" name="agentname" type="text" formControlName="agentname" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentemail">Agent Email</label>  
+            <div class="col-md-8">
+              <input id="agentemail" name="agentemail" type="text" formControlName="agentemail" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentphone">Agent Phone</label>  
+            <div class="col-md-8">
+              <input id="agentphone" name="agentphone" type="text" formControlName="agentphone" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="customername">Customer Name</label>  
+            <div class="col-md-8">
+              <input id="customername" name="customername" type="text" formControlName="customername" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="customertype">Customer Type</label>  
+            <div class="col-md-8">
+              <input id="customertype" name="customertype" type="text" formControlName="customertype" class="form-control text-capitalize" readonly />
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="customeremail">Customer Email</label>  
+            <div class="col-md-8">
+              <input id="customeremail" name="customeremail" type="text" formControlName="customeremail" class="form-control" readonly />
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="address">Customer Address</label>  
+            <div class="col-md-8">
+              <textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5" readonly></textarea>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="phone">Customer Phone</label>  
+            <div class="col-md-8">
+              <input id="phone" name="phone" type="text" formControlName="phone" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="alternatephone">Customer Alternate Phone</label>  
+            <div class="col-md-8">
+              <input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control" readonly />
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="postcode">Postcode</label>  
+            <div class="col-md-8">
+              <input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="city">City</label>  
+            <div class="col-md-8">
+              <input id="city" name="city" type="text" formControlName="city" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="city">County</label>  
+            <div class="col-md-8">
+              <input id="county" name="county" type="text" formControlName="county" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="city">Country</label>  
+            <div class="col-md-8">
+              <input id="country" name="country" type="text" formControlName="country" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="manufacturer">Manufacturer</label>  
+            <div class="col-md-8">
+              <input id="manufacturer" name="manufacturer" type="text" formControlName="manufacturer" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="modelnumber">Model Number</label>  
+            <div class="col-md-8">
+              <input id="modelnumber" name="modelnumber" type="text" formControlName="modelnumber" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="serialnumber">Serial Number</label>  
+            <div class="col-md-8">
+              <input id="serialnumber" name="serialnumber" type="text" formControlName="serialnumber" class="form-control" readonly />                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+<!--           <div class="form-group">
+            <label class="col-md-2 control-label" for="issuetype">Vulnerable Property</label>
+            <div class="col-md-8">
+              <p class="input-md">{{vulnerablevalue}}</p><br />                       
+            </div>
+			<div class="col-md-2"></div>
+          </div> -->
+          <div *ngIf="showVisitDateTime" class="form-group">
+            <label class="col-md-2 control-label" for="visitdatetime">Date and Time for Visit</label> 
+            <div class="col-md-8">
+              <input id="visitdatetime" name="visitdatetime" value="{{ visitdatetime |  date:'dd MMM yyyy hh:mm:ss'}}" type="text" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="customercomment">Customer Comment</label>  
+            <div class="col-md-8">
+              <textarea id="customernotes" name="customernotes" type="text" formControlName="customernotes" class="form-control input-md text-capitalize" rows="5" readonly ></textarea>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		  <div *ngIf="isCommentExist" class="form-group">
+			<label class="col-md-2 control-label" for="previouscomment">Previous Comment</label>
+			<div class="col-md-8 text-capitalize">	
+				<p>{{previouscomment}}</p><br />
+				<p><a [routerLink]="['/admin/issue-comments', issueid]" class="btn btn-default" title="View More">View More</a></p>			
+			</div>
+			<div class="col-md-2"></div>
+		  </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="addcomment">Add Comment</label>  
+            <div class="col-md-8">
+              <textarea id="addcomments" name="addcomments" type="text" formControlName="addcomments" class="form-control input-md" rows="5"></textarea>
+					<div *ngIf="issueEditForm.get('addcomments').dirty && issueEditForm.get('addcomments').invalid" class="alert alert-danger">
+						<div *ngIf="issueEditForm.get('addcomments').errors.pattern">Please enter valid characters only(Special characters and blank space not allowed)</div>
+						<div *ngIf="issueEditForm.get('addcomments').errors.required">Please enter comments</div>
+					</div> 			  
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Button -->		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="submit"></label>
+            <div class="col-md-8">
+              <button id="submit" name="submit" class="btn btn-primary" [disabled] = "!issueEditForm.valid">UPDATE</button>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

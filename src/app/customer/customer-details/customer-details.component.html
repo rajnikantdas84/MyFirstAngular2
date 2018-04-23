@@ -1,0 +1,144 @@
+<div id="wrapper">
+    <top-bar></top-bar>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+          <form [formGroup]="editCustomerForm" class="form-horizontal" name="editCustomerForm" (ngSubmit)="updateCustomer()">
+          <fieldset>
+          <!-- Form Name -->
+          <legend>Customer Details</legend>
+          <!-- Text input--> 
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="name">Customer Name</label>  
+            <div class="col-md-8">
+              <input id="name" name="name" type="text" formControlName="name" class="form-control" readonly>                          
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="agentemail">Email Address</label>  
+            <div class="col-md-8">
+				<input id="email" name="email" type="email" formControlName="email" class="form-control input-md" readonly>              
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="phone">Contact Number</label>  
+            <div class="col-md-8">
+				<input id="phone" name="phone" type="text" formControlName="phone" class="form-control input-md">
+					<div *ngIf="editCustomerForm.get('phone').touched && editCustomerForm.get('phone').invalid" class="alert alert-danger">
+						<div *ngIf="editCustomerForm.get('phone').errors.required">Please enter contact number</div>
+						<div *ngIf="editCustomerForm.get('phone').errors.pattern">Please enter valid contact number</div>
+					</div>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="phone">Alternate Contact Number</label>  
+            <div class="col-md-8">
+				<input id="alternatephone" name="alternatephone" type="text" formControlName="alternatephone" class="form-control input-md">
+					<div *ngIf="editCustomerForm.get('alternatephone').touched && editCustomerForm.get('alternatephone').invalid" class="alert alert-danger">
+						<div *ngIf="editCustomerForm.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+					</div>				
+              
+            </div>
+			<div class="col-md-2"></div>
+          </div>                
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="address">Address</label>  
+            <div class="col-md-8">
+				<textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" rows="5"></textarea>
+				<!--<input id="address" name="address" type="text" formControlName="address" class="form-control input-md"> -->
+					<div *ngIf="editCustomerForm.get('address').touched && editCustomerForm.get('address').invalid" class="alert alert-danger">
+						<div *ngIf="editCustomerForm.get('address').errors.required">Please enter address</div>
+					</div>				
+              
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="postcode">Post Code</label>  
+            <div class="col-md-8">
+				<input id="postcode" name="postcode" type="text" formControlName="postcode" class="form-control input-md text-uppercase" (change)="getCity()">
+					<div *ngIf="editCustomerForm.get('postcode').touched && editCustomerForm.get('postcode').invalid" class="alert alert-danger">
+						<div *ngIf="editCustomerForm.get('postcode').errors.required">Please enter postcode</div>
+						<div *ngIf="editCustomerForm.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+					</div>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="city">City</label>  
+            <div class="col-md-8">
+				<input id="city" name="city" type="text" formControlName="city" class="form-control input-md" readonly>	              
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="state">County</label>  
+            <div class="col-md-8">
+				<input id="county" name="county" type="text" formControlName="county" class="form-control input-md" readonly>             
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		 <div class="form-group">
+            <label class="col-md-2 control-label" for="country">Country</label>  
+            <div class="col-md-8">
+				<input id="country" name="country" type="text" formControlName="country" class="form-control input-md" readonly>        
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+		  <!-- Checkbox Input -->
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="updatepassword"></label>
+            <div class="col-md-8"> 
+				<label class="checkbox_link"><input type="checkbox" name="updatepassword" id="updatepassword" class="checkbox_link" formControlName="updatepassword" (change)="updatePassword();" /> Update Password </label></div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Text input-->
+		<div *ngIf="isChangePassword" class="form-group">
+            <label class="col-md-2 control-label" for="changepassword">New Password</label>  
+            <div class="col-md-8">
+				<input id="changepassword" name="changepassword" type="password"  class="form-control input-md" formControlName="changepassword" />
+				<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</i></div>
+              <div *ngIf="editCustomerForm.get('changepassword').touched && editCustomerForm.get('changepassword').invalid" class="alert alert-danger">
+                <div *ngIf="editCustomerForm.get('changepassword').errors.required">Please enter password</div>
+                <div *ngIf="editCustomerForm.get('changepassword').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special character($@$!%*?#&) letters</div>
+              </div>				
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+		  
+          <!-- Text input-->
+		<div *ngIf="isChangePassword" class="form-group">
+            <label class="col-md-2 control-label" for="showpassword"></label>  
+            <div class="col-md-8">
+				<label class="checkbox_link"><input id="checkbox" class="checkbox_link" name="showpassword" type="checkbox" formControlName="showpassword" (change)="showPassword();">	Show Password </label>		
+            </div>
+			<div class="col-md-2"></div>
+          </div>		  
+          <!-- Button -->
+		  
+          <div class="form-group">
+            <label class="col-md-2 control-label" for="submit"></label>
+            <div class="col-md-8">
+              <button id="submit" name="submit" class="btn btn-primary" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!editCustomerForm.valid">UPDATE</button>
+            </div>
+			<div class="col-md-2"></div>
+          </div>
+
+          </fieldset>
+          </form>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+<!-- /#page-wrapper -->
+</div>

@@ -1,0 +1,95 @@
+<div class="main_div">
+  <div class="div_one">
+    <p class="para_one">THE BEST WAY TO MANAGE REPAIRS AND MAINTENANCE</p>
+    <p class="para_two">SMART, WEB-BASED SOFTWARE FOR BLOCK, COMMERCIAL AND PROPERTY PROFESSIONALS</p>
+  </div>
+  <div class="div_two ">
+    <div class="signup_form">
+      <h1 class="form_heading">Tenant Registration</h1>
+	  <div *ngIf="!isFormValid" class="alert alert-danger form_one">Please enter valid informations in all the fields.</div>
+        <form [formGroup]="tenantSignUp" name="tenantSignUp" (ngSubmit)="userSignup()" >
+			<input type="hidden" name="agentuser" formControlName="agentuser" id="agentuser" />
+			<div class="form-group">
+				<input type="text" formControlName="fullname" id="fullname" class="form-control input-md" name="fullname"  placeholder="Full Name" />
+				<div *ngIf="tenantSignUp.get('fullname').touched && tenantSignUp.get('fullname').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('fullname').errors.required">Please enter full name</div>
+				</div>				
+            </div>        
+            <div class="form-group">
+				<input type="email" formControlName="email" id="email" class="form-control input-md" name="email"  placeholder="Email" >
+				<div *ngIf="tenantSignUp.get('email').touched && tenantSignUp.get('email').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('email').errors.required || tenantSignUp.get('email').errors.pattern ">Email is required and format should be <i>john@doe.com</i></div>
+					<div *ngIf="tenantSignUp.get('email').errors.isEmailUnique">Email already exists</div>
+				</div>				
+            </div>
+            <div class="form-group">
+				<input type="password" formControlName="password" id="password" class="form-control input-md" name="password"  placeholder="Password" />
+				<div><i>Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special characters($@$!%*?#&) letters</i></div>
+				<div *ngIf="tenantSignUp.get('password').touched && tenantSignUp.get('password').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('password').errors.required">Please enter password</div>
+					<div *ngIf="tenantSignUp.get('password').errors.pattern">Password should be at least 8 characters long, contain at least one uppercase, one lowercase, one numeric and one special characters($@$!%*?#&) letters</div>
+				</div>				
+            </div>
+            <div class="radio">
+				<label class="form_cb"><input id="checkbox" name="showpassword" type="checkbox" class="form_cb" formControlName="showpassword" (change)="showPassword();">&nbsp; Show Password</label>
+			</div>			
+            <div class="form-group">
+				<input type="password" formControlName="confirmpassword" id="confirmpassword" class="form-control input-md" name="confirmpassword"  placeholder="Confirm Password" >
+				<div *ngIf="tenantSignUp.get('confirmpassword').touched && tenantSignUp.get('confirmpassword').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('confirmpassword').errors.required">Please enter confirm password</div>
+					<div *ngIf="tenantSignUp.get('confirmpassword').errors.MatchPassword">Confirm password not matched</div>
+				</div>				
+            </div>
+            <div class="form-group">
+				<input type="text" formControlName="contact" id="contact" class="form-control input-md" name="contact"  placeholder="Contact Number" >
+				<div *ngIf="tenantSignUp.get('contact').touched && tenantSignUp.get('contact').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('contact').errors.required">Please enter contact number</div>
+					<div *ngIf="tenantSignUp.get('contact').errors.pattern">Please enter valid contact number</div>
+				</div>				
+            </div>
+            <div class="form-group">
+				<input type="text" formControlName="alternatephone" id="contact" class="form-control input-md" name="alternatephone"  placeholder="Alternate Contact Number" >
+				<div *ngIf="tenantSignUp.get('alternatephone').touched && tenantSignUp.get('alternatephone').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('alternatephone').errors.pattern">Please enter valid alternate contact number</div>
+				</div>				
+            </div>			
+			<div class="form-group">        
+				<input type="text" name="postcode" class="form-control form_one text-uppercase" formControlName="postcode" (change)="getCity()" placeholder="Find by Post Code" id="postcode">
+				<div *ngIf="tenantSignUp.get('postcode').touched && tenantSignUp.get('postcode').invalid" class="alert alert-danger form_one">
+					<div *ngIf="tenantSignUp.get('postcode').errors.required">Please enter postcode</div>
+					<div *ngIf="tenantSignUp.get('postcode').errors.pattern">Please enter valid UK postcode</div>
+				</div>					
+			</div>
+            <div *ngIf="isCity" class="form-group">
+				<input type="text" formControlName="city" id="city" class="form-control input-md" name="city" readonly />				
+            </div>
+            <div *ngIf="isCounty" class="form-group">
+				<input id="county" name ="county" formControlName="county" class="form-control" readonly />
+            </div>			
+            <div *ngIf="isCountry" class="form-group">
+				<input id="country" name ="country" formControlName="country" class="form-control" readonly />
+            </div>			
+            <div class="form-group">
+				<textarea id="address" name="address" type="text" formControlName="address" class="form-control input-md" placeholder="Address" rows="5"></textarea>
+				<div *ngIf="tenantSignUp.get('address').touched && tenantSignUp.get('address').invalid" class="alert alert-danger">
+					<div *ngIf="tenantSignUp.get('address').errors.required">Please enter address</div>
+				</div> 				
+            </div>
+<!--             <div *ngIf="isState" class="form-group">
+              <input id="state" name ="state" class="form-control" formControlName="state" readonly />   
+            </div> -->
+
+            <div class="radio">
+				<label class="form_cb"><input type="checkbox" name="confirmterm" id="confirmterm" formControlName="confirmterm">&nbsp; I agree to the terms and conditions <span class="requiredlabel">*</span> <span><a href="https://smarttenant.co.uk/privacy.php" target="_blank"> Please read privacy policy here</a></span></label>
+			</div>				 
+            <div class="form-group">        
+				<div>
+					<button type="submit" class="btn btn-primary text-uppercase submit_button" [ngStyle]="{'background-color': bannercolor, 'border-color': bannercolor}" [disabled] = "!tenantSignUp.valid">Sign Up</button>
+					<a [routerLink]="['/tenant-login', agentusername]">&nbsp; Back</a>
+				</div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+

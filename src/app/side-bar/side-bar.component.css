@@ -1,0 +1,5 @@
+@media only screen and (min-width: 320px) and (max-width : 767px) {
+	#page-wrapper { margin-top: 70px; }
+	.fa { width: 15px !important; text-align: center; }
+	.fa-fw { width: 15px !important; }
+}
